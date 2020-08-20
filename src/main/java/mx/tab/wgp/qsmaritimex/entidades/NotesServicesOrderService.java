@@ -6,41 +6,41 @@
 package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "NotesServicesOrderService.findAll", query = "SELECT n FROM NotesServicesOrderService n"),
-    @NamedQuery(name = "NotesServicesOrderService.findByIdNotesServiceOrderService", query = "SELECT n FROM NotesServicesOrderService n WHERE n.idNotesServiceOrderService = :idNotesServiceOrderService"),
     @NamedQuery(name = "NotesServicesOrderService.findByServiceOrderServiceId", query = "SELECT n FROM NotesServicesOrderService n WHERE n.serviceOrderServiceId = :serviceOrderServiceId"),
     @NamedQuery(name = "NotesServicesOrderService.findByDescription", query = "SELECT n FROM NotesServicesOrderService n WHERE n.description = :description"),
+    @NamedQuery(name = "NotesServicesOrderService.findByIdNotesServiceOrderService", query = "SELECT n FROM NotesServicesOrderService n WHERE n.idNotesServiceOrderService = :idNotesServiceOrderService"),
     @NamedQuery(name = "NotesServicesOrderService.findByNotes", query = "SELECT n FROM NotesServicesOrderService n WHERE n.notes = :notes"),
     @NamedQuery(name = "NotesServicesOrderService.findByStatus", query = "SELECT n FROM NotesServicesOrderService n WHERE n.status = :status")})
 public class NotesServicesOrderService implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @Column(nullable = false, precision = 19, scale = 0)
+    private BigDecimal serviceOrderServiceId;
+    @Column(length = 500)
+    private String description;
     @Basic(optional = false)
     @Column(nullable = false)
     private int idNotesServiceOrderService;
-    @Id
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private Long serviceOrderServiceId;
-    @Column(length = 500)
-    private String description;
     @Column(length = 500)
     private String notes;
     @Basic(optional = false)
@@ -50,29 +50,21 @@ public class NotesServicesOrderService implements Serializable {
     public NotesServicesOrderService() {
     }
 
-    public NotesServicesOrderService(Long serviceOrderServiceId) {
+    public NotesServicesOrderService(BigDecimal serviceOrderServiceId) {
         this.serviceOrderServiceId = serviceOrderServiceId;
     }
 
-    public NotesServicesOrderService(Long serviceOrderServiceId, int idNotesServiceOrderService, boolean status) {
+    public NotesServicesOrderService(BigDecimal serviceOrderServiceId, int idNotesServiceOrderService, boolean status) {
         this.serviceOrderServiceId = serviceOrderServiceId;
         this.idNotesServiceOrderService = idNotesServiceOrderService;
         this.status = status;
     }
 
-    public int getIdNotesServiceOrderService() {
-        return idNotesServiceOrderService;
-    }
-
-    public void setIdNotesServiceOrderService(int idNotesServiceOrderService) {
-        this.idNotesServiceOrderService = idNotesServiceOrderService;
-    }
-
-    public Long getServiceOrderServiceId() {
+    public BigDecimal getServiceOrderServiceId() {
         return serviceOrderServiceId;
     }
 
-    public void setServiceOrderServiceId(Long serviceOrderServiceId) {
+    public void setServiceOrderServiceId(BigDecimal serviceOrderServiceId) {
         this.serviceOrderServiceId = serviceOrderServiceId;
     }
 
@@ -82,6 +74,14 @@ public class NotesServicesOrderService implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getIdNotesServiceOrderService() {
+        return idNotesServiceOrderService;
+    }
+
+    public void setIdNotesServiceOrderService(int idNotesServiceOrderService) {
+        this.idNotesServiceOrderService = idNotesServiceOrderService;
     }
 
     public String getNotes() {

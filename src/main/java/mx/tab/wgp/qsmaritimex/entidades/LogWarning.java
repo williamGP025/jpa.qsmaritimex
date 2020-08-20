@@ -6,6 +6,7 @@
 package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,81 +16,64 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "LogWarning.findAll", query = "SELECT l FROM LogWarning l"),
     @NamedQuery(name = "LogWarning.findByLogWarningId", query = "SELECT l FROM LogWarning l WHERE l.logWarningId = :logWarningId"),
-    @NamedQuery(name = "LogWarning.findByFinding", query = "SELECT l FROM LogWarning l WHERE l.finding = :finding"),
-    @NamedQuery(name = "LogWarning.findByProcess", query = "SELECT l FROM LogWarning l WHERE l.process = :process"),
     @NamedQuery(name = "LogWarning.findByClass1", query = "SELECT l FROM LogWarning l WHERE l.class1 = :class1"),
-    @NamedQuery(name = "LogWarning.findByMethod", query = "SELECT l FROM LogWarning l WHERE l.method = :method"),
-    @NamedQuery(name = "LogWarning.findByEventDate", query = "SELECT l FROM LogWarning l WHERE l.eventDate = :eventDate"),
-    @NamedQuery(name = "LogWarning.findByUserId", query = "SELECT l FROM LogWarning l WHERE l.userId = :userId"),
     @NamedQuery(name = "LogWarning.findByDescription", query = "SELECT l FROM LogWarning l WHERE l.description = :description"),
-    @NamedQuery(name = "LogWarning.findByLegacySystem", query = "SELECT l FROM LogWarning l WHERE l.legacySystem = :legacySystem")})
+    @NamedQuery(name = "LogWarning.findByEventDate", query = "SELECT l FROM LogWarning l WHERE l.eventDate = :eventDate"),
+    @NamedQuery(name = "LogWarning.findByFinding", query = "SELECT l FROM LogWarning l WHERE l.finding = :finding"),
+    @NamedQuery(name = "LogWarning.findByLegacySystem", query = "SELECT l FROM LogWarning l WHERE l.legacySystem = :legacySystem"),
+    @NamedQuery(name = "LogWarning.findByMethod", query = "SELECT l FROM LogWarning l WHERE l.method = :method"),
+    @NamedQuery(name = "LogWarning.findByProcess", query = "SELECT l FROM LogWarning l WHERE l.process = :process"),
+    @NamedQuery(name = "LogWarning.findByUserId", query = "SELECT l FROM LogWarning l WHERE l.userId = :userId")})
 public class LogWarning implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
-    private Long logWarningId;
-    @Column(length = 250)
-    private String finding;
-    @Column(length = 100)
-    private String process;
+    @Column(nullable = false, precision = 19, scale = 0)
+    private BigDecimal logWarningId;
     @Column(name = "Class", length = 50)
     private String class1;
-    @Column(length = 50)
-    private String method;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date eventDate;
-    private Integer userId;
     @Column(length = 1000)
     private String description;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date eventDate;
+    @Column(length = 250)
+    private String finding;
     private Boolean legacySystem;
+    @Column(length = 50)
+    private String method;
+    @Column(length = 100)
+    private String process;
+    private Integer userId;
 
     public LogWarning() {
     }
 
-    public LogWarning(Long logWarningId) {
+    public LogWarning(BigDecimal logWarningId) {
         this.logWarningId = logWarningId;
     }
 
-    public Long getLogWarningId() {
+    public BigDecimal getLogWarningId() {
         return logWarningId;
     }
 
-    public void setLogWarningId(Long logWarningId) {
+    public void setLogWarningId(BigDecimal logWarningId) {
         this.logWarningId = logWarningId;
-    }
-
-    public String getFinding() {
-        return finding;
-    }
-
-    public void setFinding(String finding) {
-        this.finding = finding;
-    }
-
-    public String getProcess() {
-        return process;
-    }
-
-    public void setProcess(String process) {
-        this.process = process;
     }
 
     public String getClass1() {
@@ -100,12 +84,12 @@ public class LogWarning implements Serializable {
         this.class1 = class1;
     }
 
-    public String getMethod() {
-        return method;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getEventDate() {
@@ -116,20 +100,12 @@ public class LogWarning implements Serializable {
         this.eventDate = eventDate;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getFinding() {
+        return finding;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFinding(String finding) {
+        this.finding = finding;
     }
 
     public Boolean getLegacySystem() {
@@ -138,6 +114,30 @@ public class LogWarning implements Serializable {
 
     public void setLegacySystem(Boolean legacySystem) {
         this.legacySystem = legacySystem;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

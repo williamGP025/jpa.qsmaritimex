@@ -14,23 +14,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ParameterSetting.findAll", query = "SELECT p FROM ParameterSetting p"),
     @NamedQuery(name = "ParameterSetting.findByParameterSettingId", query = "SELECT p FROM ParameterSetting p WHERE p.parameterSettingId = :parameterSettingId"),
-    @NamedQuery(name = "ParameterSetting.findByName", query = "SELECT p FROM ParameterSetting p WHERE p.name = :name"),
-    @NamedQuery(name = "ParameterSetting.findByValue", query = "SELECT p FROM ParameterSetting p WHERE p.value = :value"),
     @NamedQuery(name = "ParameterSetting.findByDescription", query = "SELECT p FROM ParameterSetting p WHERE p.description = :description"),
-    @NamedQuery(name = "ParameterSetting.findByStatus", query = "SELECT p FROM ParameterSetting p WHERE p.status = :status")})
+    @NamedQuery(name = "ParameterSetting.findByName", query = "SELECT p FROM ParameterSetting p WHERE p.name = :name"),
+    @NamedQuery(name = "ParameterSetting.findByStatus", query = "SELECT p FROM ParameterSetting p WHERE p.status = :status"),
+    @NamedQuery(name = "ParameterSetting.findByValue", query = "SELECT p FROM ParameterSetting p WHERE p.value = :value")})
 public class ParameterSetting implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,16 +39,16 @@ public class ParameterSetting implements Serializable {
     private Integer parameterSettingId;
     @Basic(optional = false)
     @Column(nullable = false, length = 200)
-    private String name;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 1000)
-    private String value;
+    private String description;
     @Basic(optional = false)
     @Column(nullable = false, length = 200)
-    private String description;
+    private String name;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 1000)
+    private String value;
 
     public ParameterSetting() {
     }
@@ -59,12 +57,12 @@ public class ParameterSetting implements Serializable {
         this.parameterSettingId = parameterSettingId;
     }
 
-    public ParameterSetting(Integer parameterSettingId, String name, String value, String description, boolean status) {
+    public ParameterSetting(Integer parameterSettingId, String description, String name, boolean status, String value) {
         this.parameterSettingId = parameterSettingId;
-        this.name = name;
-        this.value = value;
         this.description = description;
+        this.name = name;
         this.status = status;
+        this.value = value;
     }
 
     public Integer getParameterSettingId() {
@@ -75,22 +73,6 @@ public class ParameterSetting implements Serializable {
         this.parameterSettingId = parameterSettingId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -99,12 +81,28 @@ public class ParameterSetting implements Serializable {
         this.description = description;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override

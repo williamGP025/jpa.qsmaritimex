@@ -17,23 +17,21 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c"),
     @NamedQuery(name = "Currency.findByCurrencyId", query = "SELECT c FROM Currency c WHERE c.currencyId = :currencyId"),
-    @NamedQuery(name = "Currency.findByName", query = "SELECT c FROM Currency c WHERE c.name = :name"),
     @NamedQuery(name = "Currency.findByAbbreviation", query = "SELECT c FROM Currency c WHERE c.abbreviation = :abbreviation"),
     @NamedQuery(name = "Currency.findByEnable", query = "SELECT c FROM Currency c WHERE c.enable = :enable"),
+    @NamedQuery(name = "Currency.findByName", query = "SELECT c FROM Currency c WHERE c.name = :name"),
     @NamedQuery(name = "Currency.findByStatus", query = "SELECT c FROM Currency c WHERE c.status = :status")})
 public class Currency implements Serializable {
 
@@ -45,12 +43,12 @@ public class Currency implements Serializable {
     private Short currencyId;
     @Basic(optional = false)
     @Column(nullable = false, length = 50)
-    private String name;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 50)
     private String abbreviation;
     @Column(length = 10)
     private String enable;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 50)
+    private String name;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
@@ -66,10 +64,10 @@ public class Currency implements Serializable {
         this.currencyId = currencyId;
     }
 
-    public Currency(Short currencyId, String name, String abbreviation, boolean status) {
+    public Currency(Short currencyId, String abbreviation, String name, boolean status) {
         this.currencyId = currencyId;
-        this.name = name;
         this.abbreviation = abbreviation;
+        this.name = name;
         this.status = status;
     }
 
@@ -79,14 +77,6 @@ public class Currency implements Serializable {
 
     public void setCurrencyId(Short currencyId) {
         this.currencyId = currencyId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAbbreviation() {
@@ -103,6 +93,14 @@ public class Currency implements Serializable {
 
     public void setEnable(String enable) {
         this.enable = enable;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean getStatus() {

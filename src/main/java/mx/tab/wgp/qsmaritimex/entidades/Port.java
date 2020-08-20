@@ -19,16 +19,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Port.findAll", query = "SELECT p FROM Port p"),
@@ -51,14 +49,14 @@ public class Port implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
-    @JoinColumn(name = "CountryId", referencedColumnName = "CountryId", nullable = false)
+    @JoinColumn(name = "CountryId", referencedColumnName = "countryId", nullable = false)
     @ManyToOne(optional = false)
     private Country countryId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "startPortId")
-    private Collection<Itinerary> itineraryCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "endPortId")
-    private Collection<Itinerary> itineraryCollection1;
+    private Collection<Itinerary> itineraryCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "operatingPortId")
+    private Collection<Itinerary> itineraryCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "startPortId")
     private Collection<Itinerary> itineraryCollection2;
 
     public Port() {

@@ -6,6 +6,7 @@
 package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,62 +20,61 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Itinerary.findAll", query = "SELECT i FROM Itinerary i"),
     @NamedQuery(name = "Itinerary.findByItineraryId", query = "SELECT i FROM Itinerary i WHERE i.itineraryId = :itineraryId"),
-    @NamedQuery(name = "Itinerary.findByJourneyNumber", query = "SELECT i FROM Itinerary i WHERE i.journeyNumber = :journeyNumber"),
     @NamedQuery(name = "Itinerary.findByDaysInPort", query = "SELECT i FROM Itinerary i WHERE i.daysInPort = :daysInPort"),
+    @NamedQuery(name = "Itinerary.findByJourneyNumber", query = "SELECT i FROM Itinerary i WHERE i.journeyNumber = :journeyNumber"),
     @NamedQuery(name = "Itinerary.findByStatus", query = "SELECT i FROM Itinerary i WHERE i.status = :status")})
 public class Itinerary implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(nullable = false, precision = 19, scale = 0)
+    private BigDecimal itineraryId;
+    @Basic(optional = false)
     @Column(nullable = false)
-    private Long itineraryId;
+    private short daysInPort;
     @Basic(optional = false)
     @Column(nullable = false, length = 50)
     private String journeyNumber;
     @Basic(optional = false)
     @Column(nullable = false)
-    private short daysInPort;
-    @Basic(optional = false)
-    @Column(nullable = false)
     private boolean status;
-    @JoinColumn(name = "ArrivalInformationId", referencedColumnName = "ArrivalInformationId", nullable = false)
+    @JoinColumn(name = "ArrivalInformationId", referencedColumnName = "arrivalInformationId", nullable = false)
     @ManyToOne(optional = false)
     private ArrivalInformation arrivalInformationId;
-    @JoinColumn(name = "CargoTypeId", referencedColumnName = "CargoTypeId", nullable = false)
+    @JoinColumn(name = "CargoTypeId", referencedColumnName = "cargoTypeId", nullable = false)
     @ManyToOne(optional = false)
     private CargoType cargoTypeId;
-    @JoinColumn(name = "StartPortId", referencedColumnName = "PortId", nullable = false)
-    @ManyToOne(optional = false)
-    private Port startPortId;
-    @JoinColumn(name = "EndPortId", referencedColumnName = "PortId", nullable = false)
+    @JoinColumn(name = "EndPortId", referencedColumnName = "portId", nullable = false)
     @ManyToOne(optional = false)
     private Port endPortId;
-    @JoinColumn(name = "OperatingPortId", referencedColumnName = "PortId", nullable = false)
+    @JoinColumn(name = "OperatingPortId", referencedColumnName = "portId", nullable = false)
     @ManyToOne(optional = false)
     private Port operatingPortId;
-    @JoinColumn(name = "ScaleTypeId", referencedColumnName = "ScaleTypeId", nullable = false)
+    @JoinColumn(name = "StartPortId", referencedColumnName = "portId", nullable = false)
+    @ManyToOne(optional = false)
+    private Port startPortId;
+    @JoinColumn(name = "ScaleTypeId", referencedColumnName = "scaleTypeId", nullable = false)
     @ManyToOne(optional = false)
     private ScaleType scaleTypeId;
-    @JoinColumn(name = "VesselId", referencedColumnName = "VesselId", nullable = false)
+    @JoinColumn(name = "VesselId", referencedColumnName = "vesselId", nullable = false)
     @ManyToOne(optional = false)
     private Vessel vesselId;
-    @JoinColumn(name = "VesselStatusId", referencedColumnName = "VesselStatusId", nullable = false)
+    @JoinColumn(name = "VesselStatusId", referencedColumnName = "vesselStatusId", nullable = false)
     @ManyToOne(optional = false)
     private VesselStatus vesselStatusId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itineraryId")
@@ -83,31 +83,23 @@ public class Itinerary implements Serializable {
     public Itinerary() {
     }
 
-    public Itinerary(Long itineraryId) {
+    public Itinerary(BigDecimal itineraryId) {
         this.itineraryId = itineraryId;
     }
 
-    public Itinerary(Long itineraryId, String journeyNumber, short daysInPort, boolean status) {
+    public Itinerary(BigDecimal itineraryId, short daysInPort, String journeyNumber, boolean status) {
         this.itineraryId = itineraryId;
-        this.journeyNumber = journeyNumber;
         this.daysInPort = daysInPort;
+        this.journeyNumber = journeyNumber;
         this.status = status;
     }
 
-    public Long getItineraryId() {
+    public BigDecimal getItineraryId() {
         return itineraryId;
     }
 
-    public void setItineraryId(Long itineraryId) {
+    public void setItineraryId(BigDecimal itineraryId) {
         this.itineraryId = itineraryId;
-    }
-
-    public String getJourneyNumber() {
-        return journeyNumber;
-    }
-
-    public void setJourneyNumber(String journeyNumber) {
-        this.journeyNumber = journeyNumber;
     }
 
     public short getDaysInPort() {
@@ -116,6 +108,14 @@ public class Itinerary implements Serializable {
 
     public void setDaysInPort(short daysInPort) {
         this.daysInPort = daysInPort;
+    }
+
+    public String getJourneyNumber() {
+        return journeyNumber;
+    }
+
+    public void setJourneyNumber(String journeyNumber) {
+        this.journeyNumber = journeyNumber;
     }
 
     public boolean getStatus() {
@@ -142,14 +142,6 @@ public class Itinerary implements Serializable {
         this.cargoTypeId = cargoTypeId;
     }
 
-    public Port getStartPortId() {
-        return startPortId;
-    }
-
-    public void setStartPortId(Port startPortId) {
-        this.startPortId = startPortId;
-    }
-
     public Port getEndPortId() {
         return endPortId;
     }
@@ -164,6 +156,14 @@ public class Itinerary implements Serializable {
 
     public void setOperatingPortId(Port operatingPortId) {
         this.operatingPortId = operatingPortId;
+    }
+
+    public Port getStartPortId() {
+        return startPortId;
+    }
+
+    public void setStartPortId(Port startPortId) {
+        this.startPortId = startPortId;
     }
 
     public ScaleType getScaleTypeId() {

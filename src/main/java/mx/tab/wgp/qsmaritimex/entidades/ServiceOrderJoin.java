@@ -6,6 +6,7 @@
 package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,15 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ServiceOrderJoin.findAll", query = "SELECT s FROM ServiceOrderJoin s"),
@@ -32,33 +31,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ServiceOrderJoin implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
-    private Long serviceOrderJoinId;
-    @JoinColumn(name = "ServiceOrderIdFather", referencedColumnName = "ServiceOrderId")
+    @Column(nullable = false, precision = 19, scale = 0)
+    private BigDecimal serviceOrderJoinId;
+    @JoinColumn(name = "ServiceOrderIdFather", referencedColumnName = "serviceOrderId")
     @ManyToOne
     private ServiceOrder serviceOrderIdFather;
-    @JoinColumn(name = "ServiceOrderIdSon", referencedColumnName = "ServiceOrderId")
+    @JoinColumn(name = "ServiceOrderIdSon", referencedColumnName = "serviceOrderId")
     @ManyToOne
     private ServiceOrder serviceOrderIdSon;
-    @JoinColumn(name = "ServiceOrderJoinTypeId", referencedColumnName = "ServiceOrderJoinTypeId")
+    @JoinColumn(name = "ServiceOrderJoinTypeId", referencedColumnName = "serviceOrderJoinTypeId")
     @ManyToOne
     private ServiceOrderJoinType serviceOrderJoinTypeId;
 
     public ServiceOrderJoin() {
     }
 
-    public ServiceOrderJoin(Long serviceOrderJoinId) {
+    public ServiceOrderJoin(BigDecimal serviceOrderJoinId) {
         this.serviceOrderJoinId = serviceOrderJoinId;
     }
 
-    public Long getServiceOrderJoinId() {
+    public BigDecimal getServiceOrderJoinId() {
         return serviceOrderJoinId;
     }
 
-    public void setServiceOrderJoinId(Long serviceOrderJoinId) {
+    public void setServiceOrderJoinId(BigDecimal serviceOrderJoinId) {
         this.serviceOrderJoinId = serviceOrderJoinId;
     }
 

@@ -16,15 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SpecialRolScreenObject.findAll", query = "SELECT s FROM SpecialRolScreenObject s"),
@@ -45,7 +43,7 @@ public class SpecialRolScreenObject implements Serializable {
     private String property;
     @Column(length = 50)
     private String value;
-    @JoinColumn(name = "idScreenObject", referencedColumnName = "ScreenObjectId")
+    @JoinColumn(name = "idScreenObject", referencedColumnName = "screenObjectId")
     @ManyToOne
     private ScreenObject idScreenObject;
 

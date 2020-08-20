@@ -16,21 +16,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RolScreenObject.findAll", query = "SELECT r FROM RolScreenObject r"),
     @NamedQuery(name = "RolScreenObject.findByScreenObjectRolId", query = "SELECT r FROM RolScreenObject r WHERE r.screenObjectRolId = :screenObjectRolId"),
-    @NamedQuery(name = "RolScreenObject.findByRolId", query = "SELECT r FROM RolScreenObject r WHERE r.rolId = :rolId"),
     @NamedQuery(name = "RolScreenObject.findByProperty", query = "SELECT r FROM RolScreenObject r WHERE r.property = :property"),
+    @NamedQuery(name = "RolScreenObject.findByRolId", query = "SELECT r FROM RolScreenObject r WHERE r.rolId = :rolId"),
     @NamedQuery(name = "RolScreenObject.findByValue", query = "SELECT r FROM RolScreenObject r WHERE r.value = :value")})
 public class RolScreenObject implements Serializable {
 
@@ -40,12 +38,12 @@ public class RolScreenObject implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer screenObjectRolId;
-    private Integer rolId;
     @Column(length = 50)
     private String property;
+    private Integer rolId;
     @Column(length = 50)
     private String value;
-    @JoinColumn(name = "ScreenObjectId", referencedColumnName = "ScreenObjectId")
+    @JoinColumn(name = "ScreenObjectId", referencedColumnName = "screenObjectId")
     @ManyToOne
     private ScreenObject screenObjectId;
 
@@ -64,20 +62,20 @@ public class RolScreenObject implements Serializable {
         this.screenObjectRolId = screenObjectRolId;
     }
 
-    public Integer getRolId() {
-        return rolId;
-    }
-
-    public void setRolId(Integer rolId) {
-        this.rolId = rolId;
-    }
-
     public String getProperty() {
         return property;
     }
 
     public void setProperty(String property) {
         this.property = property;
+    }
+
+    public Integer getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(Integer rolId) {
+        this.rolId = rolId;
     }
 
     public String getValue() {

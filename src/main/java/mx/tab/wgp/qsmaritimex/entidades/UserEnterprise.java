@@ -16,19 +16,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserEnterprise.findAll", query = "SELECT u FROM UserEnterprise u"),
-    @NamedQuery(name = "UserEnterprise.findByUserEnterpriseId", query = "SELECT u FROM UserEnterprise u WHERE u.userEnterpriseId = :userEnterpriseId")})
+    @NamedQuery(name = "UserEnterprise.findByUserEnterpriseId", query = "SELECT u FROM UserEnterprise u WHERE u.userEnterpriseId = :userEnterpriseId"),
+    @NamedQuery(name = "UserEnterprise.findByUserId", query = "SELECT u FROM UserEnterprise u WHERE u.userId = :userId")})
 public class UserEnterprise implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,18 +36,23 @@ public class UserEnterprise implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer userEnterpriseId;
-    @JoinColumn(name = "EnterpriseId", referencedColumnName = "EnterpriseId", nullable = false)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private int userId;
+    @JoinColumn(name = "EnterpriseId", referencedColumnName = "enterpriseId", nullable = false)
     @ManyToOne(optional = false)
     private Enterprise enterpriseId;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
-    @ManyToOne(optional = false)
-    private User userId;
 
     public UserEnterprise() {
     }
 
     public UserEnterprise(Integer userEnterpriseId) {
         this.userEnterpriseId = userEnterpriseId;
+    }
+
+    public UserEnterprise(Integer userEnterpriseId, int userId) {
+        this.userEnterpriseId = userEnterpriseId;
+        this.userId = userId;
     }
 
     public Integer getUserEnterpriseId() {
@@ -59,20 +63,20 @@ public class UserEnterprise implements Serializable {
         this.userEnterpriseId = userEnterpriseId;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public Enterprise getEnterpriseId() {
         return enterpriseId;
     }
 
     public void setEnterpriseId(Enterprise enterpriseId) {
         this.enterpriseId = enterpriseId;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
     }
 
     @Override

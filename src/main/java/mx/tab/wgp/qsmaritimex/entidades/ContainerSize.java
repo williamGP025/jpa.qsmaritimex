@@ -14,22 +14,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ContainerSize.findAll", query = "SELECT c FROM ContainerSize c"),
     @NamedQuery(name = "ContainerSize.findByContainerSizeId", query = "SELECT c FROM ContainerSize c WHERE c.containerSizeId = :containerSizeId"),
     @NamedQuery(name = "ContainerSize.findBySize", query = "SELECT c FROM ContainerSize c WHERE c.size = :size"),
-    @NamedQuery(name = "ContainerSize.findByTeus", query = "SELECT c FROM ContainerSize c WHERE c.teus = :teus"),
-    @NamedQuery(name = "ContainerSize.findByStatus", query = "SELECT c FROM ContainerSize c WHERE c.status = :status")})
+    @NamedQuery(name = "ContainerSize.findByStatus", query = "SELECT c FROM ContainerSize c WHERE c.status = :status"),
+    @NamedQuery(name = "ContainerSize.findByTeus", query = "SELECT c FROM ContainerSize c WHERE c.teus = :teus")})
 public class ContainerSize implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,10 +37,10 @@ public class ContainerSize implements Serializable {
     @Column(nullable = false)
     private Integer containerSizeId;
     private Integer size;
+    private Boolean status;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(precision = 53, scale = 0)
     private Double teus;
-    private Boolean status;
 
     public ContainerSize() {
     }
@@ -67,20 +65,20 @@ public class ContainerSize implements Serializable {
         this.size = size;
     }
 
-    public Double getTeus() {
-        return teus;
-    }
-
-    public void setTeus(Double teus) {
-        this.teus = teus;
-    }
-
     public Boolean getStatus() {
         return status;
     }
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Double getTeus() {
+        return teus;
+    }
+
+    public void setTeus(Double teus) {
+        this.teus = teus;
     }
 
     @Override

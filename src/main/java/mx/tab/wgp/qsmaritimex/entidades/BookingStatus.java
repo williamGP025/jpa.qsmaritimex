@@ -12,22 +12,20 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BookingStatus.findAll", query = "SELECT b FROM BookingStatus b"),
     @NamedQuery(name = "BookingStatus.findByBookingStatusId", query = "SELECT b FROM BookingStatus b WHERE b.bookingStatusId = :bookingStatusId"),
-    @NamedQuery(name = "BookingStatus.findByStatusId", query = "SELECT b FROM BookingStatus b WHERE b.statusId = :statusId"),
     @NamedQuery(name = "BookingStatus.findByDescription", query = "SELECT b FROM BookingStatus b WHERE b.description = :description"),
-    @NamedQuery(name = "BookingStatus.findByStatus", query = "SELECT b FROM BookingStatus b WHERE b.status = :status")})
+    @NamedQuery(name = "BookingStatus.findByStatus", query = "SELECT b FROM BookingStatus b WHERE b.status = :status"),
+    @NamedQuery(name = "BookingStatus.findByStatusId", query = "SELECT b FROM BookingStatus b WHERE b.statusId = :statusId")})
 public class BookingStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,14 +33,14 @@ public class BookingStatus implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer bookingStatusId;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private int statusId;
     @Column(length = 50)
     private String description;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private int statusId;
 
     public BookingStatus() {
     }
@@ -51,10 +49,10 @@ public class BookingStatus implements Serializable {
         this.bookingStatusId = bookingStatusId;
     }
 
-    public BookingStatus(Integer bookingStatusId, int statusId, boolean status) {
+    public BookingStatus(Integer bookingStatusId, boolean status, int statusId) {
         this.bookingStatusId = bookingStatusId;
-        this.statusId = statusId;
         this.status = status;
+        this.statusId = statusId;
     }
 
     public Integer getBookingStatusId() {
@@ -63,14 +61,6 @@ public class BookingStatus implements Serializable {
 
     public void setBookingStatusId(Integer bookingStatusId) {
         this.bookingStatusId = bookingStatusId;
-    }
-
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
     }
 
     public String getDescription() {
@@ -87,6 +77,14 @@ public class BookingStatus implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     @Override

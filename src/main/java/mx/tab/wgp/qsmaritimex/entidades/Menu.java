@@ -16,26 +16,24 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Menu.findAll", query = "SELECT m FROM Menu m"),
     @NamedQuery(name = "Menu.findByMenuId", query = "SELECT m FROM Menu m WHERE m.menuId = :menuId"),
-    @NamedQuery(name = "Menu.findByMenuName", query = "SELECT m FROM Menu m WHERE m.menuName = :menuName"),
-    @NamedQuery(name = "Menu.findByMenuDescription", query = "SELECT m FROM Menu m WHERE m.menuDescription = :menuDescription"),
-    @NamedQuery(name = "Menu.findByMenuURL", query = "SELECT m FROM Menu m WHERE m.menuURL = :menuURL"),
     @NamedQuery(name = "Menu.findByMenuCss", query = "SELECT m FROM Menu m WHERE m.menuCss = :menuCss"),
-    @NamedQuery(name = "Menu.findByMenuParentId", query = "SELECT m FROM Menu m WHERE m.menuParentId = :menuParentId"),
+    @NamedQuery(name = "Menu.findByMenuDescription", query = "SELECT m FROM Menu m WHERE m.menuDescription = :menuDescription"),
+    @NamedQuery(name = "Menu.findByMenuName", query = "SELECT m FROM Menu m WHERE m.menuName = :menuName"),
     @NamedQuery(name = "Menu.findByMenuOrder", query = "SELECT m FROM Menu m WHERE m.menuOrder = :menuOrder"),
+    @NamedQuery(name = "Menu.findByMenuParentId", query = "SELECT m FROM Menu m WHERE m.menuParentId = :menuParentId"),
+    @NamedQuery(name = "Menu.findByMenuURL", query = "SELECT m FROM Menu m WHERE m.menuURL = :menuURL"),
     @NamedQuery(name = "Menu.findByStatus", query = "SELECT m FROM Menu m WHERE m.status = :status")})
 public class Menu implements Serializable {
 
@@ -45,16 +43,16 @@ public class Menu implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer menuId;
-    @Column(length = 100)
-    private String menuName;
+    @Column(length = 50)
+    private String menuCss;
     @Column(length = 100)
     private String menuDescription;
     @Column(length = 100)
-    private String menuURL;
-    @Column(length = 50)
-    private String menuCss;
-    private Integer menuParentId;
+    private String menuName;
     private Integer menuOrder;
+    private Integer menuParentId;
+    @Column(length = 100)
+    private String menuURL;
     private Boolean status;
     @OneToMany(mappedBy = "menuId")
     private Collection<RolMenu> rolMenuCollection;
@@ -76,12 +74,12 @@ public class Menu implements Serializable {
         this.menuId = menuId;
     }
 
-    public String getMenuName() {
-        return menuName;
+    public String getMenuCss() {
+        return menuCss;
     }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
+    public void setMenuCss(String menuCss) {
+        this.menuCss = menuCss;
     }
 
     public String getMenuDescription() {
@@ -92,20 +90,20 @@ public class Menu implements Serializable {
         this.menuDescription = menuDescription;
     }
 
-    public String getMenuURL() {
-        return menuURL;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setMenuURL(String menuURL) {
-        this.menuURL = menuURL;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
-    public String getMenuCss() {
-        return menuCss;
+    public Integer getMenuOrder() {
+        return menuOrder;
     }
 
-    public void setMenuCss(String menuCss) {
-        this.menuCss = menuCss;
+    public void setMenuOrder(Integer menuOrder) {
+        this.menuOrder = menuOrder;
     }
 
     public Integer getMenuParentId() {
@@ -116,12 +114,12 @@ public class Menu implements Serializable {
         this.menuParentId = menuParentId;
     }
 
-    public Integer getMenuOrder() {
-        return menuOrder;
+    public String getMenuURL() {
+        return menuURL;
     }
 
-    public void setMenuOrder(Integer menuOrder) {
-        this.menuOrder = menuOrder;
+    public void setMenuURL(String menuURL) {
+        this.menuURL = menuURL;
     }
 
     public Boolean getStatus() {

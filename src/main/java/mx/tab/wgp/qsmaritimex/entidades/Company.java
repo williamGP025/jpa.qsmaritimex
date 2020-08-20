@@ -23,16 +23,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
+@Table(name = "Company")
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
     @NamedQuery(name = "Company.findByCompanyId", query = "SELECT c FROM Company c WHERE c.companyId = :companyId"),
-    @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :name"),
     @NamedQuery(name = "Company.findByCode", query = "SELECT c FROM Company c WHERE c.code = :code"),
+    @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :name"),
     @NamedQuery(name = "Company.findByStatus", query = "SELECT c FROM Company c WHERE c.status = :status")})
 public class Company implements Serializable {
 
@@ -42,11 +42,11 @@ public class Company implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Short companyId;
+    @Column(length = 50)
+    private String code;
     @Basic(optional = false)
     @Column(nullable = false, length = 100)
     private String name;
-    @Column(length = 50)
-    private String code;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
@@ -74,20 +74,20 @@ public class Company implements Serializable {
         this.companyId = companyId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean getStatus() {

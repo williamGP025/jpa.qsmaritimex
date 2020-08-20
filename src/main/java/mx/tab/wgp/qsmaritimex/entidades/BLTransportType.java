@@ -12,23 +12,21 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BLTransportType.findAll", query = "SELECT b FROM BLTransportType b"),
     @NamedQuery(name = "BLTransportType.findByBLTransportTypeId", query = "SELECT b FROM BLTransportType b WHERE b.bLTransportTypeId = :bLTransportTypeId"),
     @NamedQuery(name = "BLTransportType.findByIntTransportTypeId", query = "SELECT b FROM BLTransportType b WHERE b.intTransportTypeId = :intTransportTypeId"),
-    @NamedQuery(name = "BLTransportType.findByStrName", query = "SELECT b FROM BLTransportType b WHERE b.strName = :strName"),
+    @NamedQuery(name = "BLTransportType.findByStatus", query = "SELECT b FROM BLTransportType b WHERE b.status = :status"),
     @NamedQuery(name = "BLTransportType.findByStrDescription", query = "SELECT b FROM BLTransportType b WHERE b.strDescription = :strDescription"),
-    @NamedQuery(name = "BLTransportType.findByStatus", query = "SELECT b FROM BLTransportType b WHERE b.status = :status")})
+    @NamedQuery(name = "BLTransportType.findByStrName", query = "SELECT b FROM BLTransportType b WHERE b.strName = :strName")})
 public class BLTransportType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,13 +37,13 @@ public class BLTransportType implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private int intTransportTypeId;
-    @Column(length = 10)
-    private String strName;
-    @Column(length = 50)
-    private String strDescription;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    @Column(length = 50)
+    private String strDescription;
+    @Column(length = 10)
+    private String strName;
 
     public BLTransportType() {
     }
@@ -76,12 +74,12 @@ public class BLTransportType implements Serializable {
         this.intTransportTypeId = intTransportTypeId;
     }
 
-    public String getStrName() {
-        return strName;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setStrName(String strName) {
-        this.strName = strName;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getStrDescription() {
@@ -92,12 +90,12 @@ public class BLTransportType implements Serializable {
         this.strDescription = strDescription;
     }
 
-    public boolean getStatus() {
-        return status;
+    public String getStrName() {
+        return strName;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setStrName(String strName) {
+        this.strName = strName;
     }
 
     @Override

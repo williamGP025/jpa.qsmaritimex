@@ -16,19 +16,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserRol.findAll", query = "SELECT u FROM UserRol u"),
-    @NamedQuery(name = "UserRol.findByUserRolId", query = "SELECT u FROM UserRol u WHERE u.userRolId = :userRolId")})
+    @NamedQuery(name = "UserRol.findByUserRolId", query = "SELECT u FROM UserRol u WHERE u.userRolId = :userRolId"),
+    @NamedQuery(name = "UserRol.findByUserId", query = "SELECT u FROM UserRol u WHERE u.userId = :userId")})
 public class UserRol implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,18 +36,23 @@ public class UserRol implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer userRolId;
-    @JoinColumn(name = "RolId", referencedColumnName = "RolId", nullable = false)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private int userId;
+    @JoinColumn(name = "RolId", referencedColumnName = "rolId", nullable = false)
     @ManyToOne(optional = false)
     private Rol rolId;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
-    @ManyToOne(optional = false)
-    private User userId;
 
     public UserRol() {
     }
 
     public UserRol(Integer userRolId) {
         this.userRolId = userRolId;
+    }
+
+    public UserRol(Integer userRolId, int userId) {
+        this.userRolId = userRolId;
+        this.userId = userId;
     }
 
     public Integer getUserRolId() {
@@ -59,20 +63,20 @@ public class UserRol implements Serializable {
         this.userRolId = userRolId;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public Rol getRolId() {
         return rolId;
     }
 
     public void setRolId(Rol rolId) {
         this.rolId = rolId;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
     }
 
     @Override

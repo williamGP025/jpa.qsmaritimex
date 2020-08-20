@@ -6,6 +6,7 @@
 package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,72 +17,79 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "VendorProfile.findAll", query = "SELECT v FROM VendorProfile v"),
     @NamedQuery(name = "VendorProfile.findByVendorId", query = "SELECT v FROM VendorProfile v WHERE v.vendorId = :vendorId"),
+    @NamedQuery(name = "VendorProfile.findByEmail", query = "SELECT v FROM VendorProfile v WHERE v.email = :email"),
     @NamedQuery(name = "VendorProfile.findByName", query = "SELECT v FROM VendorProfile v WHERE v.name = :name"),
     @NamedQuery(name = "VendorProfile.findByPassword", query = "SELECT v FROM VendorProfile v WHERE v.password = :password"),
-    @NamedQuery(name = "VendorProfile.findByEmail", query = "SELECT v FROM VendorProfile v WHERE v.email = :email"),
     @NamedQuery(name = "VendorProfile.findByPhone", query = "SELECT v FROM VendorProfile v WHERE v.phone = :phone"),
-    @NamedQuery(name = "VendorProfile.findByVendorAccount", query = "SELECT v FROM VendorProfile v WHERE v.vendorAccount = :vendorAccount"),
-    @NamedQuery(name = "VendorProfile.findByStatus", query = "SELECT v FROM VendorProfile v WHERE v.status = :status")})
+    @NamedQuery(name = "VendorProfile.findByStatus", query = "SELECT v FROM VendorProfile v WHERE v.status = :status"),
+    @NamedQuery(name = "VendorProfile.findByVendorAccount", query = "SELECT v FROM VendorProfile v WHERE v.vendorAccount = :vendorAccount")})
 public class VendorProfile implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
-    private Long vendorId;
+    @Column(nullable = false, precision = 19, scale = 0)
+    private BigDecimal vendorId;
+    @Column(length = 150)
+    private String email;
     @Basic(optional = false)
     @Column(nullable = false, length = 150)
     private String name;
     @Basic(optional = false)
     @Column(nullable = false, length = 25)
     private String password;
-    @Column(length = 150)
-    private String email;
     @Column(length = 20)
     private String phone;
-    @Column(length = 40)
-    private String vendorAccount;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    @Column(length = 40)
+    private String vendorAccount;
     @OneToMany(mappedBy = "vendorId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
 
     public VendorProfile() {
     }
 
-    public VendorProfile(Long vendorId) {
+    public VendorProfile(BigDecimal vendorId) {
         this.vendorId = vendorId;
     }
 
-    public VendorProfile(Long vendorId, String name, String password, boolean status) {
+    public VendorProfile(BigDecimal vendorId, String name, String password, boolean status) {
         this.vendorId = vendorId;
         this.name = name;
         this.password = password;
         this.status = status;
     }
 
-    public Long getVendorId() {
+    public BigDecimal getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(Long vendorId) {
+    public void setVendorId(BigDecimal vendorId) {
         this.vendorId = vendorId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -100,14 +108,6 @@ public class VendorProfile implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -116,20 +116,20 @@ public class VendorProfile implements Serializable {
         this.phone = phone;
     }
 
-    public String getVendorAccount() {
-        return vendorAccount;
-    }
-
-    public void setVendorAccount(String vendorAccount) {
-        this.vendorAccount = vendorAccount;
-    }
-
     public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getVendorAccount() {
+        return vendorAccount;
+    }
+
+    public void setVendorAccount(String vendorAccount) {
+        this.vendorAccount = vendorAccount;
     }
 
     @XmlTransient

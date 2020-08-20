@@ -14,23 +14,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ContainerType.findAll", query = "SELECT c FROM ContainerType c"),
     @NamedQuery(name = "ContainerType.findByContainerTypeId", query = "SELECT c FROM ContainerType c WHERE c.containerTypeId = :containerTypeId"),
-    @NamedQuery(name = "ContainerType.findBySize", query = "SELECT c FROM ContainerType c WHERE c.size = :size"),
-    @NamedQuery(name = "ContainerType.findByDescription", query = "SELECT c FROM ContainerType c WHERE c.description = :description"),
     @NamedQuery(name = "ContainerType.findByCapacity", query = "SELECT c FROM ContainerType c WHERE c.capacity = :capacity"),
     @NamedQuery(name = "ContainerType.findByCubicCapacity", query = "SELECT c FROM ContainerType c WHERE c.cubicCapacity = :cubicCapacity"),
+    @NamedQuery(name = "ContainerType.findByDescription", query = "SELECT c FROM ContainerType c WHERE c.description = :description"),
+    @NamedQuery(name = "ContainerType.findBySize", query = "SELECT c FROM ContainerType c WHERE c.size = :size"),
     @NamedQuery(name = "ContainerType.findByStatus", query = "SELECT c FROM ContainerType c WHERE c.status = :status")})
 public class ContainerType implements Serializable {
 
@@ -40,11 +38,11 @@ public class ContainerType implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer containerTypeId;
-    private Integer size;
-    @Column(length = 100)
-    private String description;
     private Integer capacity;
     private Integer cubicCapacity;
+    @Column(length = 100)
+    private String description;
+    private Integer size;
     private Boolean status;
 
     public ContainerType() {
@@ -62,22 +60,6 @@ public class ContainerType implements Serializable {
         this.containerTypeId = containerTypeId;
     }
 
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Integer getCapacity() {
         return capacity;
     }
@@ -92,6 +74,22 @@ public class ContainerType implements Serializable {
 
     public void setCubicCapacity(Integer cubicCapacity) {
         this.cubicCapacity = cubicCapacity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public Boolean getStatus() {

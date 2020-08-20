@@ -21,15 +21,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
+@Table(name = "VesselPerLine")
 @NamedQueries({
     @NamedQuery(name = "VesselPerLine.findAll", query = "SELECT v FROM VesselPerLine v"),
     @NamedQuery(name = "VesselPerLine.findByVesselPerLineId", query = "SELECT v FROM VesselPerLine v WHERE v.vesselPerLineId = :vesselPerLineId"),
-    @NamedQuery(name = "VesselPerLine.findByStatus", query = "SELECT v FROM VesselPerLine v WHERE v.status = :status")})
+    @NamedQuery(name = "VesselPerLine.findByStatus", query = "SELECT v FROM VesselPerLine v WHERE v.status = :status"),
+    @NamedQuery(name = "VesselPerLine.findByLineId", query = "SELECT v FROM VesselPerLine v WHERE v.lineId = :lineId")})
 public class VesselPerLine implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,12 +42,13 @@ public class VesselPerLine implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
-    @JoinColumn(name = "LineId", referencedColumnName = "LineId", nullable = false)
-    @ManyToOne(optional = false)
-    private Line lineId;
-    @JoinColumn(name = "VesselId", referencedColumnName = "VesselId", nullable = false)
+    @JoinColumn(name = "VesselId", referencedColumnName = "vesselId", nullable = false)
     @ManyToOne(optional = false)
     private Vessel vesselId;
+    //-----------------------------------
+    @JoinColumn(name = "LineId", referencedColumnName = "lineId", nullable = false)
+    @ManyToOne(optional = false)
+    private Line lineId;
 
     public VesselPerLine() {
     }
@@ -55,9 +57,10 @@ public class VesselPerLine implements Serializable {
         this.vesselPerLineId = vesselPerLineId;
     }
 
-    public VesselPerLine(Integer vesselPerLineId, boolean status) {
+    public VesselPerLine(Integer vesselPerLineId, boolean status, Line lineId) {
         this.vesselPerLineId = vesselPerLineId;
         this.status = status;
+        this.lineId = lineId;
     }
 
     public Integer getVesselPerLineId() {
@@ -93,28 +96,7 @@ public class VesselPerLine implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (vesselPerLineId != null ? vesselPerLineId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof VesselPerLine)) {
-            return false;
-        }
-        VesselPerLine other = (VesselPerLine) object;
-        if ((this.vesselPerLineId == null && other.vesselPerLineId != null) || (this.vesselPerLineId != null && !this.vesselPerLineId.equals(other.vesselPerLineId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public String toString() {
-        return "mx.tab.wgp.qsmaritimex.entidades.VesselPerLine[ vesselPerLineId=" + vesselPerLineId + " ]";
+        return "VesselPerLine{" + "vesselPerLineId=" + vesselPerLineId + ", status=" + status + ", vesselId=" + vesselId + ", lineId=" + lineId + '}';
     }
-    
 }

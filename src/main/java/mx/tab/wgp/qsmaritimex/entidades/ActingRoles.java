@@ -16,15 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ActingRoles.findAll", query = "SELECT a FROM ActingRoles a"),
@@ -41,10 +39,10 @@ public class ActingRoles implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
-    @JoinColumn(name = "ActingRolesTypeId", referencedColumnName = "ActingRolesTypeId", nullable = false)
+    @JoinColumn(name = "ActingRolesTypeId", referencedColumnName = "actingRolesTypeId", nullable = false)
     @ManyToOne(optional = false)
     private ActingRolesType actingRolesTypeId;
-    @JoinColumn(name = "ServiceOrderId", referencedColumnName = "ServiceOrderId", nullable = false)
+    @JoinColumn(name = "ServiceOrderId", referencedColumnName = "serviceOrderId", nullable = false)
     @ManyToOne(optional = false)
     private ServiceOrder serviceOrderId;
 

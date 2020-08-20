@@ -15,17 +15,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"ServiceOrderFileId"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ServiceOrderFile.findAll", query = "SELECT s FROM ServiceOrderFile s"),
@@ -49,10 +45,10 @@ public class ServiceOrderFile implements Serializable {
     @Lob
     private Serializable serviceOrderDocument;
     private Boolean status;
-    @JoinColumn(name = "ServiceOrderId", referencedColumnName = "ServiceOrderId", nullable = false)
+    @JoinColumn(name = "ServiceOrderId", referencedColumnName = "serviceOrderId", nullable = false)
     @ManyToOne(optional = false)
     private ServiceOrder serviceOrderId;
-    @JoinColumn(name = "ServiceOrderFileTypeId", referencedColumnName = "ServiceOrderFileTypeId", nullable = false)
+    @JoinColumn(name = "ServiceOrderFileTypeId", referencedColumnName = "serviceOrderFileTypeId", nullable = false)
     @ManyToOne(optional = false)
     private ServiceOrderFileType serviceOrderFileTypeId;
 

@@ -17,24 +17,22 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "WeightUnit.findAll", query = "SELECT w FROM WeightUnit w"),
     @NamedQuery(name = "WeightUnit.findByWeightUnitId", query = "SELECT w FROM WeightUnit w WHERE w.weightUnitId = :weightUnitId"),
-    @NamedQuery(name = "WeightUnit.findByWeightCode", query = "SELECT w FROM WeightUnit w WHERE w.weightCode = :weightCode"),
-    @NamedQuery(name = "WeightUnit.findByDescription", query = "SELECT w FROM WeightUnit w WHERE w.description = :description"),
     @NamedQuery(name = "WeightUnit.findByCRMCode", query = "SELECT w FROM WeightUnit w WHERE w.cRMCode = :cRMCode"),
-    @NamedQuery(name = "WeightUnit.findByStatus", query = "SELECT w FROM WeightUnit w WHERE w.status = :status")})
+    @NamedQuery(name = "WeightUnit.findByDescription", query = "SELECT w FROM WeightUnit w WHERE w.description = :description"),
+    @NamedQuery(name = "WeightUnit.findByStatus", query = "SELECT w FROM WeightUnit w WHERE w.status = :status"),
+    @NamedQuery(name = "WeightUnit.findByWeightCode", query = "SELECT w FROM WeightUnit w WHERE w.weightCode = :weightCode")})
 public class WeightUnit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,14 +41,14 @@ public class WeightUnit implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer weightUnitId;
-    private Integer weightCode;
-    @Column(length = 300)
-    private String description;
     @Column(length = 200)
     private String cRMCode;
+    @Column(length = 300)
+    private String description;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    private Integer weightCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "weightUnitId")
     private Collection<ServiceOrderProductType> serviceOrderProductTypeCollection;
 
@@ -74,12 +72,12 @@ public class WeightUnit implements Serializable {
         this.weightUnitId = weightUnitId;
     }
 
-    public Integer getWeightCode() {
-        return weightCode;
+    public String getCRMCode() {
+        return cRMCode;
     }
 
-    public void setWeightCode(Integer weightCode) {
-        this.weightCode = weightCode;
+    public void setCRMCode(String cRMCode) {
+        this.cRMCode = cRMCode;
     }
 
     public String getDescription() {
@@ -90,20 +88,20 @@ public class WeightUnit implements Serializable {
         this.description = description;
     }
 
-    public String getCRMCode() {
-        return cRMCode;
-    }
-
-    public void setCRMCode(String cRMCode) {
-        this.cRMCode = cRMCode;
-    }
-
     public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Integer getWeightCode() {
+        return weightCode;
+    }
+
+    public void setWeightCode(Integer weightCode) {
+        this.weightCode = weightCode;
     }
 
     @XmlTransient

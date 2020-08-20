@@ -18,7 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,18 +25,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
     @NamedQuery(name = "Rol.findByRolId", query = "SELECT r FROM Rol r WHERE r.rolId = :rolId"),
-    @NamedQuery(name = "Rol.findByRolName", query = "SELECT r FROM Rol r WHERE r.rolName = :rolName"),
-    @NamedQuery(name = "Rol.findByDescription", query = "SELECT r FROM Rol r WHERE r.description = :description"),
     @NamedQuery(name = "Rol.findByCreateDate", query = "SELECT r FROM Rol r WHERE r.createDate = :createDate"),
+    @NamedQuery(name = "Rol.findByDescription", query = "SELECT r FROM Rol r WHERE r.description = :description"),
     @NamedQuery(name = "Rol.findByModifyDate", query = "SELECT r FROM Rol r WHERE r.modifyDate = :modifyDate"),
+    @NamedQuery(name = "Rol.findByRolName", query = "SELECT r FROM Rol r WHERE r.rolName = :rolName"),
     @NamedQuery(name = "Rol.findByStatus", query = "SELECT r FROM Rol r WHERE r.status = :status")})
 public class Rol implements Serializable {
 
@@ -48,19 +46,19 @@ public class Rol implements Serializable {
     @Column(nullable = false)
     private Integer rolId;
     @Basic(optional = false)
-    @Column(nullable = false, length = 30)
-    private String rolName;
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
     @Basic(optional = false)
     @Column(nullable = false, length = 30)
     private String description;
     @Basic(optional = false)
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date modifyDate;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 30)
+    private String rolName;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
@@ -76,12 +74,12 @@ public class Rol implements Serializable {
         this.rolId = rolId;
     }
 
-    public Rol(Integer rolId, String rolName, String description, Date createDate, Date modifyDate, boolean status) {
+    public Rol(Integer rolId, Date createDate, String description, Date modifyDate, String rolName, boolean status) {
         this.rolId = rolId;
-        this.rolName = rolName;
-        this.description = description;
         this.createDate = createDate;
+        this.description = description;
         this.modifyDate = modifyDate;
+        this.rolName = rolName;
         this.status = status;
     }
 
@@ -93,12 +91,12 @@ public class Rol implements Serializable {
         this.rolId = rolId;
     }
 
-    public String getRolName() {
-        return rolName;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setRolName(String rolName) {
-        this.rolName = rolName;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public String getDescription() {
@@ -109,20 +107,20 @@ public class Rol implements Serializable {
         this.description = description;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
     public Date getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public String getRolName() {
+        return rolName;
+    }
+
+    public void setRolName(String rolName) {
+        this.rolName = rolName;
     }
 
     public boolean getStatus() {

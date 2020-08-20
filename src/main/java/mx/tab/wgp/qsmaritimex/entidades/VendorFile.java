@@ -16,26 +16,22 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"VendorFileId"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "VendorFile.findAll", query = "SELECT v FROM VendorFile v"),
     @NamedQuery(name = "VendorFile.findByVendorFileId", query = "SELECT v FROM VendorFile v WHERE v.vendorFileId = :vendorFileId"),
-    @NamedQuery(name = "VendorFile.findByVendorFileTypeId", query = "SELECT v FROM VendorFile v WHERE v.vendorFileTypeId = :vendorFileTypeId"),
+    @NamedQuery(name = "VendorFile.findByAmount", query = "SELECT v FROM VendorFile v WHERE v.amount = :amount"),
     @NamedQuery(name = "VendorFile.findByFileName", query = "SELECT v FROM VendorFile v WHERE v.fileName = :fileName"),
     @NamedQuery(name = "VendorFile.findByFileType", query = "SELECT v FROM VendorFile v WHERE v.fileType = :fileType"),
-    @NamedQuery(name = "VendorFile.findByAmount", query = "SELECT v FROM VendorFile v WHERE v.amount = :amount"),
-    @NamedQuery(name = "VendorFile.findByStatus", query = "SELECT v FROM VendorFile v WHERE v.status = :status")})
+    @NamedQuery(name = "VendorFile.findByStatus", query = "SELECT v FROM VendorFile v WHERE v.status = :status"),
+    @NamedQuery(name = "VendorFile.findByVendorFileTypeId", query = "SELECT v FROM VendorFile v WHERE v.vendorFileTypeId = :vendorFileTypeId")})
 public class VendorFile implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,18 +39,18 @@ public class VendorFile implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 36)
     private String vendorFileId;
-    private Integer vendorFileTypeId;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 12, scale = 4)
+    private BigDecimal amount;
     @Column(length = 10)
     private String fileName;
     @Column(length = 10)
     private String fileType;
+    private Boolean status;
     @Lob
     private Serializable vendorDocument;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 12, scale = 4)
-    private BigDecimal amount;
-    private Boolean status;
-    @JoinColumn(name = "ServiceOrderServiceId", referencedColumnName = "ServiceOrderServiceId", nullable = false)
+    private Integer vendorFileTypeId;
+    @JoinColumn(name = "ServiceOrderServiceId", referencedColumnName = "serviceOrderServiceId", nullable = false)
     @ManyToOne(optional = false)
     private ServiceOrderService serviceOrderServiceId;
 
@@ -73,12 +69,12 @@ public class VendorFile implements Serializable {
         this.vendorFileId = vendorFileId;
     }
 
-    public Integer getVendorFileTypeId() {
-        return vendorFileTypeId;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setVendorFileTypeId(Integer vendorFileTypeId) {
-        this.vendorFileTypeId = vendorFileTypeId;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public String getFileName() {
@@ -97,6 +93,14 @@ public class VendorFile implements Serializable {
         this.fileType = fileType;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     public Serializable getVendorDocument() {
         return vendorDocument;
     }
@@ -105,20 +109,12 @@ public class VendorFile implements Serializable {
         this.vendorDocument = vendorDocument;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public Integer getVendorFileTypeId() {
+        return vendorFileTypeId;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setVendorFileTypeId(Integer vendorFileTypeId) {
+        this.vendorFileTypeId = vendorFileTypeId;
     }
 
     public ServiceOrderService getServiceOrderServiceId() {

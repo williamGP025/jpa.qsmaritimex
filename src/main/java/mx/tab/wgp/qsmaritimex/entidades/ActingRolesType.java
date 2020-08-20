@@ -17,16 +17,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ActingRolesType.findAll", query = "SELECT a FROM ActingRolesType a"),
@@ -49,8 +47,6 @@ public class ActingRolesType implements Serializable {
     private Boolean status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "actingRolesTypeId")
     private Collection<ActingRoles> actingRolesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "actingRolesTypeId")
-    private Collection<ServiceOrderServicesTemplate> serviceOrderServicesTemplateCollection;
 
     public ActingRolesType() {
     }
@@ -98,15 +94,6 @@ public class ActingRolesType implements Serializable {
 
     public void setActingRolesCollection(Collection<ActingRoles> actingRolesCollection) {
         this.actingRolesCollection = actingRolesCollection;
-    }
-
-    @XmlTransient
-    public Collection<ServiceOrderServicesTemplate> getServiceOrderServicesTemplateCollection() {
-        return serviceOrderServicesTemplateCollection;
-    }
-
-    public void setServiceOrderServicesTemplateCollection(Collection<ServiceOrderServicesTemplate> serviceOrderServicesTemplateCollection) {
-        this.serviceOrderServicesTemplateCollection = serviceOrderServicesTemplateCollection;
     }
 
     @Override

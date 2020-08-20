@@ -18,25 +18,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "VendorInvoice.findAll", query = "SELECT v FROM VendorInvoice v"),
     @NamedQuery(name = "VendorInvoice.findByVendorInvoiceID", query = "SELECT v FROM VendorInvoice v WHERE v.vendorInvoiceID = :vendorInvoiceID"),
+    @NamedQuery(name = "VendorInvoice.findByAdvancePaymentFile", query = "SELECT v FROM VendorInvoice v WHERE v.advancePaymentFile = :advancePaymentFile"),
+    @NamedQuery(name = "VendorInvoice.findByDescription", query = "SELECT v FROM VendorInvoice v WHERE v.description = :description"),
     @NamedQuery(name = "VendorInvoice.findByInvoiceFile", query = "SELECT v FROM VendorInvoice v WHERE v.invoiceFile = :invoiceFile"),
     @NamedQuery(name = "VendorInvoice.findByInvoiceFileName", query = "SELECT v FROM VendorInvoice v WHERE v.invoiceFileName = :invoiceFileName"),
-    @NamedQuery(name = "VendorInvoice.findByAdvancePaymentFile", query = "SELECT v FROM VendorInvoice v WHERE v.advancePaymentFile = :advancePaymentFile"),
     @NamedQuery(name = "VendorInvoice.findByNotes", query = "SELECT v FROM VendorInvoice v WHERE v.notes = :notes"),
-    @NamedQuery(name = "VendorInvoice.findByDescription", query = "SELECT v FROM VendorInvoice v WHERE v.description = :description"),
     @NamedQuery(name = "VendorInvoice.findByStatus", query = "SELECT v FROM VendorInvoice v WHERE v.status = :status")})
 public class VendorInvoice implements Serializable {
 
@@ -46,23 +44,23 @@ public class VendorInvoice implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer vendorInvoiceID;
-    private Integer invoiceFile;
-    @Column(length = 500)
-    private String invoiceFileName;
     @Column(length = 200)
     private String advancePaymentFile;
     @Column(length = 500)
-    private String notes;
-    @Column(length = 500)
     private String description;
+    private Integer invoiceFile;
+    @Column(length = 500)
+    private String invoiceFileName;
+    @Column(length = 500)
+    private String notes;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
-    @OneToMany(mappedBy = "vendorInvoiceOldID")
-    private Collection<ServiceOrderService> serviceOrderServiceCollection;
     @OneToMany(mappedBy = "vendorInvoiceID")
+    private Collection<ServiceOrderService> serviceOrderServiceCollection;
+    @OneToMany(mappedBy = "vendorInvoiceOldID")
     private Collection<ServiceOrderService> serviceOrderServiceCollection1;
-    @JoinColumn(name = "VendorInvoiceStatusId", referencedColumnName = "VendorInvoiceStatusId", nullable = false)
+    @JoinColumn(name = "VendorInvoiceStatusId", referencedColumnName = "vendorInvoiceStatusId", nullable = false)
     @ManyToOne(optional = false)
     private VendorInvoiceStatus vendorInvoiceStatusId;
 
@@ -86,6 +84,22 @@ public class VendorInvoice implements Serializable {
         this.vendorInvoiceID = vendorInvoiceID;
     }
 
+    public String getAdvancePaymentFile() {
+        return advancePaymentFile;
+    }
+
+    public void setAdvancePaymentFile(String advancePaymentFile) {
+        this.advancePaymentFile = advancePaymentFile;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Integer getInvoiceFile() {
         return invoiceFile;
     }
@@ -102,28 +116,12 @@ public class VendorInvoice implements Serializable {
         this.invoiceFileName = invoiceFileName;
     }
 
-    public String getAdvancePaymentFile() {
-        return advancePaymentFile;
-    }
-
-    public void setAdvancePaymentFile(String advancePaymentFile) {
-        this.advancePaymentFile = advancePaymentFile;
-    }
-
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public boolean getStatus() {

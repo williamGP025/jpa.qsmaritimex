@@ -16,23 +16,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MenuSection.findAll", query = "SELECT m FROM MenuSection m"),
     @NamedQuery(name = "MenuSection.findByMenuSectionId", query = "SELECT m FROM MenuSection m WHERE m.menuSectionId = :menuSectionId"),
-    @NamedQuery(name = "MenuSection.findByMenuSectionParentId", query = "SELECT m FROM MenuSection m WHERE m.menuSectionParentId = :menuSectionParentId"),
-    @NamedQuery(name = "MenuSection.findByMenuSectionOrder", query = "SELECT m FROM MenuSection m WHERE m.menuSectionOrder = :menuSectionOrder"),
-    @NamedQuery(name = "MenuSection.findByMenuSectionDescription", query = "SELECT m FROM MenuSection m WHERE m.menuSectionDescription = :menuSectionDescription"),
     @NamedQuery(name = "MenuSection.findByMenuSectionCss", query = "SELECT m FROM MenuSection m WHERE m.menuSectionCss = :menuSectionCss"),
+    @NamedQuery(name = "MenuSection.findByMenuSectionDescription", query = "SELECT m FROM MenuSection m WHERE m.menuSectionDescription = :menuSectionDescription"),
+    @NamedQuery(name = "MenuSection.findByMenuSectionOrder", query = "SELECT m FROM MenuSection m WHERE m.menuSectionOrder = :menuSectionOrder"),
+    @NamedQuery(name = "MenuSection.findByMenuSectionParentId", query = "SELECT m FROM MenuSection m WHERE m.menuSectionParentId = :menuSectionParentId"),
     @NamedQuery(name = "MenuSection.findByStatus", query = "SELECT m FROM MenuSection m WHERE m.status = :status")})
 public class MenuSection implements Serializable {
 
@@ -42,14 +40,14 @@ public class MenuSection implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer menuSectionId;
-    private Integer menuSectionParentId;
-    private Integer menuSectionOrder;
-    @Column(length = 100)
-    private String menuSectionDescription;
     @Column(length = 50)
     private String menuSectionCss;
+    @Column(length = 100)
+    private String menuSectionDescription;
+    private Integer menuSectionOrder;
+    private Integer menuSectionParentId;
     private Boolean status;
-    @JoinColumn(name = "MenuId", referencedColumnName = "MenuId")
+    @JoinColumn(name = "MenuId", referencedColumnName = "menuId")
     @ManyToOne
     private Menu menuId;
 
@@ -68,20 +66,12 @@ public class MenuSection implements Serializable {
         this.menuSectionId = menuSectionId;
     }
 
-    public Integer getMenuSectionParentId() {
-        return menuSectionParentId;
+    public String getMenuSectionCss() {
+        return menuSectionCss;
     }
 
-    public void setMenuSectionParentId(Integer menuSectionParentId) {
-        this.menuSectionParentId = menuSectionParentId;
-    }
-
-    public Integer getMenuSectionOrder() {
-        return menuSectionOrder;
-    }
-
-    public void setMenuSectionOrder(Integer menuSectionOrder) {
-        this.menuSectionOrder = menuSectionOrder;
+    public void setMenuSectionCss(String menuSectionCss) {
+        this.menuSectionCss = menuSectionCss;
     }
 
     public String getMenuSectionDescription() {
@@ -92,12 +82,20 @@ public class MenuSection implements Serializable {
         this.menuSectionDescription = menuSectionDescription;
     }
 
-    public String getMenuSectionCss() {
-        return menuSectionCss;
+    public Integer getMenuSectionOrder() {
+        return menuSectionOrder;
     }
 
-    public void setMenuSectionCss(String menuSectionCss) {
-        this.menuSectionCss = menuSectionCss;
+    public void setMenuSectionOrder(Integer menuSectionOrder) {
+        this.menuSectionOrder = menuSectionOrder;
+    }
+
+    public Integer getMenuSectionParentId() {
+        return menuSectionParentId;
+    }
+
+    public void setMenuSectionParentId(Integer menuSectionParentId) {
+        this.menuSectionParentId = menuSectionParentId;
     }
 
     public Boolean getStatus() {

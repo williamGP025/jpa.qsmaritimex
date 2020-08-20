@@ -21,15 +21,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
+@Table(name = "Line")
 @NamedQueries({
     @NamedQuery(name = "Line.findAll", query = "SELECT l FROM Line l"),
     @NamedQuery(name = "Line.findByLineId", query = "SELECT l FROM Line l WHERE l.lineId = :lineId"),
@@ -38,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Line.findByLineNo", query = "SELECT l FROM Line l WHERE l.lineNo = :lineNo"),
     @NamedQuery(name = "Line.findByCaat", query = "SELECT l FROM Line l WHERE l.caat = :caat"),
     @NamedQuery(name = "Line.findByNotificationEmail", query = "SELECT l FROM Line l WHERE l.notificationEmail = :notificationEmail"),
+    @NamedQuery(name = "Line.findByShipOwnerId", query = "SELECT l FROM Line l WHERE l.shipOwnerId = :shipOwnerId"),
     @NamedQuery(name = "Line.findByStatus", query = "SELECT l FROM Line l WHERE l.status = :status")})
 public class Line implements Serializable {
 
@@ -45,36 +45,71 @@ public class Line implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "LineId")
     private Short lineId;
     @Basic(optional = false)
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, name = "Name")
     private String name;
     @Basic(optional = false)
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, name = "LineCode")
     private String lineCode;
+    @Column(name = "[LineNo]")
     private Integer lineNo;
-    @Column(length = 50)
+    @Column(length = 50, name = "CAAT")
     private String caat;
-    @Column(length = 50)
+    @Column(length = 50, name = "NotificationEmail")
     private String notificationEmail;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "Status")
     private boolean status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineId")
-    private Collection<UserLine> userLineCollection;
-    @JoinColumn(name = "CompanyId", referencedColumnName = "CompanyId", nullable = false)
+    //--------------------------------------------------------------------------------------
+    @JoinColumn(name = "CompanyId", referencedColumnName = "companyId", nullable = false)
     @ManyToOne(optional = false)
     private Company companyId;
-    @JoinColumn(name = "ShipOwnerId", referencedColumnName = "ShipOwnerId")
-    @ManyToOne
+    @JoinColumn(name = "ShipOwnerId", referencedColumnName = "shipOwnerId", nullable = true)
+    @ManyToOne(optional = true)
     private ShipOwner shipOwnerId;
+    //--------------------------------------------------------------------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineId")
-    private Collection<ServiceOrder> serviceOrderCollection;
+    private Collection<UserLine> userLineCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineId")
     private Collection<VesselPerLine> vesselPerLineCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lineId")
+    private Collection<ServiceOrder> serviceOrderCollection;
 
     public Line() {
+    }
+
+    public Collection<UserLine> getUserLineCollection() {
+        return userLineCollection;
+    }
+
+    public void setUserLineCollection(Collection<UserLine> userLineCollection) {
+        this.userLineCollection = userLineCollection;
+    }
+
+    public Collection<VesselPerLine> getVesselPerLineCollection() {
+        return vesselPerLineCollection;
+    }
+
+    public void setVesselPerLineCollection(Collection<VesselPerLine> vesselPerLineCollection) {
+        this.vesselPerLineCollection = vesselPerLineCollection;
+    }
+
+    public Collection<ServiceOrder> getServiceOrderCollection() {
+        return serviceOrderCollection;
+    }
+
+    public void setServiceOrderCollection(Collection<ServiceOrder> serviceOrderCollection) {
+        this.serviceOrderCollection = serviceOrderCollection;
+    }
+
+    public Collection<UserLine> getLineCollection() {
+        return userLineCollection;
+    }
+
+    public void setLineCollection(Collection<UserLine> lineCollection) {
+        this.userLineCollection = lineCollection;
     }
 
     public Line(Short lineId) {
@@ -136,21 +171,20 @@ public class Line implements Serializable {
         this.notificationEmail = notificationEmail;
     }
 
+    public ShipOwner getShipOwnerId() {
+        return shipOwnerId;
+    }
+
+    public void setShipOwnerId(ShipOwner shipOwnerId) {
+        this.shipOwnerId = shipOwnerId;
+    }
+
     public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    @XmlTransient
-    public Collection<UserLine> getUserLineCollection() {
-        return userLineCollection;
-    }
-
-    public void setUserLineCollection(Collection<UserLine> userLineCollection) {
-        this.userLineCollection = userLineCollection;
     }
 
     public Company getCompanyId() {
@@ -161,55 +195,9 @@ public class Line implements Serializable {
         this.companyId = companyId;
     }
 
-    public ShipOwner getShipOwnerId() {
-        return shipOwnerId;
-    }
-
-    public void setShipOwnerId(ShipOwner shipOwnerId) {
-        this.shipOwnerId = shipOwnerId;
-    }
-
-    @XmlTransient
-    public Collection<ServiceOrder> getServiceOrderCollection() {
-        return serviceOrderCollection;
-    }
-
-    public void setServiceOrderCollection(Collection<ServiceOrder> serviceOrderCollection) {
-        this.serviceOrderCollection = serviceOrderCollection;
-    }
-
-    @XmlTransient
-    public Collection<VesselPerLine> getVesselPerLineCollection() {
-        return vesselPerLineCollection;
-    }
-
-    public void setVesselPerLineCollection(Collection<VesselPerLine> vesselPerLineCollection) {
-        this.vesselPerLineCollection = vesselPerLineCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (lineId != null ? lineId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Line)) {
-            return false;
-        }
-        Line other = (Line) object;
-        if ((this.lineId == null && other.lineId != null) || (this.lineId != null && !this.lineId.equals(other.lineId))) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "mx.tab.wgp.qsmaritimex.entidades.Line[ lineId=" + lineId + " ]";
+        return "Line{" + "lineId=" + lineId + ", name=" + name + ", lineCode=" + lineCode + ", lineNo=" + lineNo + ", caat=" + caat + ", notificationEmail=" + notificationEmail + ", status=" + status + ", companyId=" + companyId + ", shipOwnerId=" + shipOwnerId + '}';
     }
-    
+
 }

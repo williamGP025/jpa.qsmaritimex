@@ -18,22 +18,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ScreenObject.findAll", query = "SELECT s FROM ScreenObject s"),
     @NamedQuery(name = "ScreenObject.findByScreenObjectId", query = "SELECT s FROM ScreenObject s WHERE s.screenObjectId = :screenObjectId"),
-    @NamedQuery(name = "ScreenObject.findByScreenObjectName", query = "SELECT s FROM ScreenObject s WHERE s.screenObjectName = :screenObjectName"),
-    @NamedQuery(name = "ScreenObject.findByScreenObjectDescription", query = "SELECT s FROM ScreenObject s WHERE s.screenObjectDescription = :screenObjectDescription")})
+    @NamedQuery(name = "ScreenObject.findByScreenObjectDescription", query = "SELECT s FROM ScreenObject s WHERE s.screenObjectDescription = :screenObjectDescription"),
+    @NamedQuery(name = "ScreenObject.findByScreenObjectName", query = "SELECT s FROM ScreenObject s WHERE s.screenObjectName = :screenObjectName")})
 public class ScreenObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,13 +40,13 @@ public class ScreenObject implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer screenObjectId;
-    @Column(length = 100)
-    private String screenObjectName;
     @Column(length = 500)
     private String screenObjectDescription;
+    @Column(length = 100)
+    private String screenObjectName;
     @OneToMany(mappedBy = "idScreenObject")
     private Collection<SpecialRolScreenObject> specialRolScreenObjectCollection;
-    @JoinColumn(name = "ScreenId", referencedColumnName = "ScreenId")
+    @JoinColumn(name = "ScreenId", referencedColumnName = "screenId")
     @ManyToOne
     private Screen screenId;
     @OneToMany(mappedBy = "screenObjectId")
@@ -69,20 +67,20 @@ public class ScreenObject implements Serializable {
         this.screenObjectId = screenObjectId;
     }
 
-    public String getScreenObjectName() {
-        return screenObjectName;
-    }
-
-    public void setScreenObjectName(String screenObjectName) {
-        this.screenObjectName = screenObjectName;
-    }
-
     public String getScreenObjectDescription() {
         return screenObjectDescription;
     }
 
     public void setScreenObjectDescription(String screenObjectDescription) {
         this.screenObjectDescription = screenObjectDescription;
+    }
+
+    public String getScreenObjectName() {
+        return screenObjectName;
+    }
+
+    public void setScreenObjectName(String screenObjectName) {
+        this.screenObjectName = screenObjectName;
     }
 
     @XmlTransient

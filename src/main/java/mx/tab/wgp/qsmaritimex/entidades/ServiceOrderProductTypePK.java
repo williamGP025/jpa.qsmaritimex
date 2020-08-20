@@ -6,37 +6,30 @@
 package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Embeddable
 public class ServiceOrderProductTypePK implements Serializable {
 
     @Basic(optional = false)
     @Column(nullable = false)
-    private long serviceOrderId;
+    private int productTypeId;
     @Basic(optional = false)
     @Column(nullable = false)
-    private int productTypeId;
+    private BigInteger serviceOrderId;
 
     public ServiceOrderProductTypePK() {
     }
 
-    public ServiceOrderProductTypePK(long serviceOrderId, int productTypeId) {
-        this.serviceOrderId = serviceOrderId;
+    public ServiceOrderProductTypePK(int productTypeId, BigInteger serviceOrderId) {
         this.productTypeId = productTypeId;
-    }
-
-    public long getServiceOrderId() {
-        return serviceOrderId;
-    }
-
-    public void setServiceOrderId(long serviceOrderId) {
         this.serviceOrderId = serviceOrderId;
     }
 
@@ -48,11 +41,19 @@ public class ServiceOrderProductTypePK implements Serializable {
         this.productTypeId = productTypeId;
     }
 
+    public BigInteger getServiceOrderId() {
+        return serviceOrderId;
+    }
+
+    public void setServiceOrderId(BigInteger serviceOrderId) {
+        this.serviceOrderId = serviceOrderId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) serviceOrderId;
         hash += (int) productTypeId;
+        hash += (serviceOrderId != null ? serviceOrderId.hashCode() : 0);
         return hash;
     }
 
@@ -63,10 +64,10 @@ public class ServiceOrderProductTypePK implements Serializable {
             return false;
         }
         ServiceOrderProductTypePK other = (ServiceOrderProductTypePK) object;
-        if (this.serviceOrderId != other.serviceOrderId) {
+        if (this.productTypeId != other.productTypeId) {
             return false;
         }
-        if (this.productTypeId != other.productTypeId) {
+        if ((this.serviceOrderId == null && other.serviceOrderId != null) || (this.serviceOrderId != null && !this.serviceOrderId.equals(other.serviceOrderId))) {
             return false;
         }
         return true;
@@ -74,7 +75,7 @@ public class ServiceOrderProductTypePK implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.tab.wgp.qsmaritimex.entidades.ServiceOrderProductTypePK[ serviceOrderId=" + serviceOrderId + ", productTypeId=" + productTypeId + " ]";
+        return "mx.tab.wgp.qsmaritimex.entidades.ServiceOrderProductTypePK[ productTypeId=" + productTypeId + ", serviceOrderId=" + serviceOrderId + " ]";
     }
     
 }

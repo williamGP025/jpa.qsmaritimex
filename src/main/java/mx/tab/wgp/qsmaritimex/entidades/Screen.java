@@ -16,22 +16,20 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Screen.findAll", query = "SELECT s FROM Screen s"),
     @NamedQuery(name = "Screen.findByScreenId", query = "SELECT s FROM Screen s WHERE s.screenId = :screenId"),
-    @NamedQuery(name = "Screen.findByScreenName", query = "SELECT s FROM Screen s WHERE s.screenName = :screenName"),
     @NamedQuery(name = "Screen.findByScreenDescription", query = "SELECT s FROM Screen s WHERE s.screenDescription = :screenDescription"),
+    @NamedQuery(name = "Screen.findByScreenName", query = "SELECT s FROM Screen s WHERE s.screenName = :screenName"),
     @NamedQuery(name = "Screen.findByStatus", query = "SELECT s FROM Screen s WHERE s.status = :status")})
 public class Screen implements Serializable {
 
@@ -41,10 +39,10 @@ public class Screen implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer screenId;
-    @Column(length = 100)
-    private String screenName;
     @Column(length = 500)
     private String screenDescription;
+    @Column(length = 100)
+    private String screenName;
     private Boolean status;
     @OneToMany(mappedBy = "screenId")
     private Collection<ScreenObject> screenObjectCollection;
@@ -64,20 +62,20 @@ public class Screen implements Serializable {
         this.screenId = screenId;
     }
 
-    public String getScreenName() {
-        return screenName;
-    }
-
-    public void setScreenName(String screenName) {
-        this.screenName = screenName;
-    }
-
     public String getScreenDescription() {
         return screenDescription;
     }
 
     public void setScreenDescription(String screenDescription) {
         this.screenDescription = screenDescription;
+    }
+
+    public String getScreenName() {
+        return screenName;
+    }
+
+    public void setScreenName(String screenName) {
+        this.screenName = screenName;
     }
 
     public Boolean getStatus() {

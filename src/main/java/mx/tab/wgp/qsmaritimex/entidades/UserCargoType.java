@@ -16,20 +16,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserCargoType.findAll", query = "SELECT u FROM UserCargoType u"),
     @NamedQuery(name = "UserCargoType.findByUserCargoTypeId", query = "SELECT u FROM UserCargoType u WHERE u.userCargoTypeId = :userCargoTypeId"),
-    @NamedQuery(name = "UserCargoType.findByStatus", query = "SELECT u FROM UserCargoType u WHERE u.status = :status")})
+    @NamedQuery(name = "UserCargoType.findByStatus", query = "SELECT u FROM UserCargoType u WHERE u.status = :status"),
+    @NamedQuery(name = "UserCargoType.findByUserId", query = "SELECT u FROM UserCargoType u WHERE u.userId = :userId")})
 public class UserCargoType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,12 +40,12 @@ public class UserCargoType implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
-    @JoinColumn(name = "CargoTypeId", referencedColumnName = "CargoTypeId", nullable = false)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private int userId;
+    @JoinColumn(name = "CargoTypeId", referencedColumnName = "cargoTypeId", nullable = false)
     @ManyToOne(optional = false)
     private CargoType cargoTypeId;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
-    @ManyToOne(optional = false)
-    private User userId;
 
     public UserCargoType() {
     }
@@ -55,9 +54,10 @@ public class UserCargoType implements Serializable {
         this.userCargoTypeId = userCargoTypeId;
     }
 
-    public UserCargoType(Integer userCargoTypeId, boolean status) {
+    public UserCargoType(Integer userCargoTypeId, boolean status, int userId) {
         this.userCargoTypeId = userCargoTypeId;
         this.status = status;
+        this.userId = userId;
     }
 
     public Integer getUserCargoTypeId() {
@@ -76,20 +76,20 @@ public class UserCargoType implements Serializable {
         this.status = status;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public CargoType getCargoTypeId() {
         return cargoTypeId;
     }
 
     public void setCargoTypeId(CargoType cargoTypeId) {
         this.cargoTypeId = cargoTypeId;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
     }
 
     @Override

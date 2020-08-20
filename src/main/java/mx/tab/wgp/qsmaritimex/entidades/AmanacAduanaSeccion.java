@@ -14,21 +14,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AmanacAduanaSeccion.findAll", query = "SELECT a FROM AmanacAduanaSeccion a"),
     @NamedQuery(name = "AmanacAduanaSeccion.findByAduanaSeccionCode", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.aduanaSeccionCode = :aduanaSeccionCode"),
-    @NamedQuery(name = "AmanacAduanaSeccion.findByPortId", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.portId = :portId"),
     @NamedQuery(name = "AmanacAduanaSeccion.findByName", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.name = :name"),
+    @NamedQuery(name = "AmanacAduanaSeccion.findByPortId", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.portId = :portId"),
     @NamedQuery(name = "AmanacAduanaSeccion.findByStatus", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.status = :status")})
 public class AmanacAduanaSeccion implements Serializable {
 
@@ -38,9 +36,9 @@ public class AmanacAduanaSeccion implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer aduanaSeccionCode;
-    private Integer portId;
     @Column(length = 200)
     private String name;
+    private Integer portId;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
@@ -65,20 +63,20 @@ public class AmanacAduanaSeccion implements Serializable {
         this.aduanaSeccionCode = aduanaSeccionCode;
     }
 
-    public Integer getPortId() {
-        return portId;
-    }
-
-    public void setPortId(Integer portId) {
-        this.portId = portId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPortId() {
+        return portId;
+    }
+
+    public void setPortId(Integer portId) {
+        this.portId = portId;
     }
 
     public boolean getStatus() {

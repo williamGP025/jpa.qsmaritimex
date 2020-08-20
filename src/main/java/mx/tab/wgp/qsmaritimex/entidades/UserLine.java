@@ -21,14 +21,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
+@Table(name = "UserLine")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserLine.findAll", query = "SELECT u FROM UserLine u"),
-    @NamedQuery(name = "UserLine.findByUserLineId", query = "SELECT u FROM UserLine u WHERE u.userLineId = :userLineId")})
+    @NamedQuery(name = "UserLine.findByUserLineId", query = "SELECT u FROM UserLine u WHERE u.userLineId = :userLineId"),
+    @NamedQuery(name = "UserLine.findByLineId", query = "SELECT u FROM UserLine u WHERE u.lineId = :lineId"),
+    @NamedQuery(name = "UserLine.findByUserId", query = "SELECT u FROM UserLine u WHERE u.userId = :userId")})
 public class UserLine implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,7 +39,8 @@ public class UserLine implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer userLineId;
-    @JoinColumn(name = "LineId", referencedColumnName = "LineId", nullable = false)
+    //----------------------
+    @JoinColumn(name = "LineId", referencedColumnName = "lineId", nullable = false)
     @ManyToOne(optional = false)
     private Line lineId;
     @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
@@ -49,6 +52,12 @@ public class UserLine implements Serializable {
 
     public UserLine(Integer userLineId) {
         this.userLineId = userLineId;
+    }
+
+    public UserLine(Integer userLineId, Line lineId, User userId) {
+        this.userLineId = userLineId;
+        this.lineId = lineId;
+        this.userId = userId;
     }
 
     public Integer getUserLineId() {
@@ -99,5 +108,5 @@ public class UserLine implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.UserLine[ userLineId=" + userLineId + " ]";
     }
-    
+
 }

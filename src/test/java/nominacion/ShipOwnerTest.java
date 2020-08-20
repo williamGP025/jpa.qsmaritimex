@@ -13,12 +13,9 @@ import org.junit.jupiter.api.Test;
  * @author WilliamGP025
  */
 public class ShipOwnerTest {
-   
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-     @Test
-     public void hello() {
-         Persistence.generateSchema("qsmaritimex_jpa", null);
-     }
+
+    @Test
+    public void generateSchema() {
+        Persistence.generateSchema("qsmaritimex_jpa", null);
+    }
 }

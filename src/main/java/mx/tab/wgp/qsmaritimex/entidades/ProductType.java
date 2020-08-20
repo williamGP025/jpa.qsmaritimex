@@ -17,24 +17,22 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ProductType.findAll", query = "SELECT p FROM ProductType p"),
     @NamedQuery(name = "ProductType.findByProductTypeId", query = "SELECT p FROM ProductType p WHERE p.productTypeId = :productTypeId"),
     @NamedQuery(name = "ProductType.findByDescriptionMX", query = "SELECT p FROM ProductType p WHERE p.descriptionMX = :descriptionMX"),
     @NamedQuery(name = "ProductType.findByDescriptionUS", query = "SELECT p FROM ProductType p WHERE p.descriptionUS = :descriptionUS"),
-    @NamedQuery(name = "ProductType.findBySyncCRM", query = "SELECT p FROM ProductType p WHERE p.syncCRM = :syncCRM"),
-    @NamedQuery(name = "ProductType.findByStatus", query = "SELECT p FROM ProductType p WHERE p.status = :status")})
+    @NamedQuery(name = "ProductType.findByStatus", query = "SELECT p FROM ProductType p WHERE p.status = :status"),
+    @NamedQuery(name = "ProductType.findBySyncCRM", query = "SELECT p FROM ProductType p WHERE p.syncCRM = :syncCRM")})
 public class ProductType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,8 +46,8 @@ public class ProductType implements Serializable {
     private String descriptionMX;
     @Column(length = 50)
     private String descriptionUS;
-    private Boolean syncCRM;
     private Boolean status;
+    private Boolean syncCRM;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType")
     private Collection<ServiceOrderProductType> serviceOrderProductTypeCollection;
 
@@ -89,20 +87,20 @@ public class ProductType implements Serializable {
         this.descriptionUS = descriptionUS;
     }
 
-    public Boolean getSyncCRM() {
-        return syncCRM;
-    }
-
-    public void setSyncCRM(Boolean syncCRM) {
-        this.syncCRM = syncCRM;
-    }
-
     public Boolean getStatus() {
         return status;
     }
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Boolean getSyncCRM() {
+        return syncCRM;
+    }
+
+    public void setSyncCRM(Boolean syncCRM) {
+        this.syncCRM = syncCRM;
     }
 
     @XmlTransient

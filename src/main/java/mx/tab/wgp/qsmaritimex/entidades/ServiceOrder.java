@@ -7,7 +7,6 @@ package mx.tab.wgp.qsmaritimex.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -30,41 +29,41 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
+@Table(name = "ServiceOrder")
 @NamedQueries({
     @NamedQuery(name = "ServiceOrder.findAll", query = "SELECT s FROM ServiceOrder s"),
     @NamedQuery(name = "ServiceOrder.findByServiceOrderId", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderId = :serviceOrderId"),
-    @NamedQuery(name = "ServiceOrder.findByServiceOrderCode", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderCode = :serviceOrderCode"),
-    @NamedQuery(name = "ServiceOrder.findByServiceOrderCreationDate", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderCreationDate = :serviceOrderCreationDate"),
+    @NamedQuery(name = "ServiceOrder.findByBillingAdjustment", query = "SELECT s FROM ServiceOrder s WHERE s.billingAdjustment = :billingAdjustment"),
+    @NamedQuery(name = "ServiceOrder.findByComments", query = "SELECT s FROM ServiceOrder s WHERE s.comments = :comments"),
+    @NamedQuery(name = "ServiceOrder.findByExchangeModified", query = "SELECT s FROM ServiceOrder s WHERE s.exchangeModified = :exchangeModified"),
     @NamedQuery(name = "ServiceOrder.findByExchangeRate", query = "SELECT s FROM ServiceOrder s WHERE s.exchangeRate = :exchangeRate"),
     @NamedQuery(name = "ServiceOrder.findByFinalExchangeRate", query = "SELECT s FROM ServiceOrder s WHERE s.finalExchangeRate = :finalExchangeRate"),
     @NamedQuery(name = "ServiceOrder.findByOperatingInstructions", query = "SELECT s FROM ServiceOrder s WHERE s.operatingInstructions = :operatingInstructions"),
-    @NamedQuery(name = "ServiceOrder.findByComments", query = "SELECT s FROM ServiceOrder s WHERE s.comments = :comments"),
-    @NamedQuery(name = "ServiceOrder.findByBillingAdjustment", query = "SELECT s FROM ServiceOrder s WHERE s.billingAdjustment = :billingAdjustment"),
     @NamedQuery(name = "ServiceOrder.findByPaymentReceiptId", query = "SELECT s FROM ServiceOrder s WHERE s.paymentReceiptId = :paymentReceiptId"),
-    @NamedQuery(name = "ServiceOrder.findByExchangeModified", query = "SELECT s FROM ServiceOrder s WHERE s.exchangeModified = :exchangeModified"),
+    @NamedQuery(name = "ServiceOrder.findByServiceOrderCode", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderCode = :serviceOrderCode"),
+    @NamedQuery(name = "ServiceOrder.findByServiceOrderCreationDate", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderCreationDate = :serviceOrderCreationDate"),
+    @NamedQuery(name = "ServiceOrder.findByStatus", query = "SELECT s FROM ServiceOrder s WHERE s.status = :status"),
     @NamedQuery(name = "ServiceOrder.findByTypeServiceOrder", query = "SELECT s FROM ServiceOrder s WHERE s.typeServiceOrder = :typeServiceOrder"),
-    @NamedQuery(name = "ServiceOrder.findByStatus", query = "SELECT s FROM ServiceOrder s WHERE s.status = :status")})
+    @NamedQuery(name = "ServiceOrder.findByLineId", query = "SELECT s FROM ServiceOrder s WHERE s.lineId = :lineId"),
+    @NamedQuery(name = "ServiceOrder.findByUserId", query = "SELECT s FROM ServiceOrder s WHERE s.userId = :userId")})
 public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
-    private Long serviceOrderId;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 8)
-    private String serviceOrderCode;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date serviceOrderCreationDate;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(nullable = false, precision = 19, scale = 0)
+    private BigDecimal serviceOrderId;
+    @Column(precision = 12, scale = 4)
+    private BigDecimal billingAdjustment;
+    @Column(length = 500)
+    private String comments;
+    private Boolean exchangeModified;
     @Column(precision = 12, scale = 4)
     private BigDecimal exchangeRate;
     @Column(precision = 12, scale = 4)
@@ -72,16 +71,20 @@ public class ServiceOrder implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 500)
     private String operatingInstructions;
-    @Column(length = 500)
-    private String comments;
-    @Column(precision = 12, scale = 4)
-    private BigDecimal billingAdjustment;
-    private BigInteger paymentReceiptId;
-    private Boolean exchangeModified;
-    private Boolean typeServiceOrder;
+    @Column(precision = 19, scale = 2)
+    private BigDecimal paymentReceiptId;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 8)
+    private String serviceOrderCode;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date serviceOrderCreationDate;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    private Boolean typeServiceOrder;
+    private Integer userId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
@@ -96,62 +99,69 @@ public class ServiceOrder implements Serializable {
     private Collection<ServiceOrderJoin> serviceOrderJoinCollection;
     @OneToMany(mappedBy = "serviceOrderIdSon")
     private Collection<ServiceOrderJoin> serviceOrderJoinCollection1;
-    @JoinColumn(name = "CurrencyId", referencedColumnName = "CurrencyId", nullable = false)
+    @JoinColumn(name = "CurrencyId", referencedColumnName = "currencyId", nullable = false)
     @ManyToOne(optional = false)
     private Currency currencyId;
-    @JoinColumn(name = "ItineraryId", referencedColumnName = "ItineraryId", nullable = false)
+    @JoinColumn(name = "ItineraryId", referencedColumnName = "itineraryId", nullable = false)
     @ManyToOne(optional = false)
     private Itinerary itineraryId;
-    @JoinColumn(name = "LineId", referencedColumnName = "LineId", nullable = false)
-    @ManyToOne(optional = false)
-    private Line lineId;
-    @JoinColumn(name = "ServiceOrderStatusId", referencedColumnName = "ServiceOrderStatusId", nullable = false)
+    @JoinColumn(name = "ServiceOrderStatusId", referencedColumnName = "serviceOrderStatusId", nullable = false)
     @ManyToOne(optional = false)
     private ServiceOrderStatus serviceOrderStatusId;
-    @JoinColumn(name = "ShipOwnerId", referencedColumnName = "ShipOwnerId", nullable = false)
+    @JoinColumn(name = "ShipOwnerId", referencedColumnName = "shipOwnerId", nullable = false)
     @ManyToOne(optional = false)
     private ShipOwner shipOwnerId;
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
-    @ManyToOne
-    private User userId;
+    //-----------------------------------
+    @JoinColumn(name = "LineId", referencedColumnName = "lineId", nullable = false)
+    @ManyToOne(optional = false)
+    private Line lineId;
 
     public ServiceOrder() {
     }
 
-    public ServiceOrder(Long serviceOrderId) {
+    public ServiceOrder(BigDecimal serviceOrderId) {
         this.serviceOrderId = serviceOrderId;
     }
 
-    public ServiceOrder(Long serviceOrderId, String serviceOrderCode, Date serviceOrderCreationDate, String operatingInstructions, boolean status) {
+    public ServiceOrder(BigDecimal serviceOrderId, String operatingInstructions, String serviceOrderCode, Date serviceOrderCreationDate, boolean status, Line lineId) {
         this.serviceOrderId = serviceOrderId;
+        this.operatingInstructions = operatingInstructions;
         this.serviceOrderCode = serviceOrderCode;
         this.serviceOrderCreationDate = serviceOrderCreationDate;
-        this.operatingInstructions = operatingInstructions;
         this.status = status;
+        this.lineId = lineId;
     }
 
-    public Long getServiceOrderId() {
+    public BigDecimal getServiceOrderId() {
         return serviceOrderId;
     }
 
-    public void setServiceOrderId(Long serviceOrderId) {
+    public void setServiceOrderId(BigDecimal serviceOrderId) {
         this.serviceOrderId = serviceOrderId;
     }
 
-    public String getServiceOrderCode() {
-        return serviceOrderCode;
+    public BigDecimal getBillingAdjustment() {
+        return billingAdjustment;
     }
 
-    public void setServiceOrderCode(String serviceOrderCode) {
-        this.serviceOrderCode = serviceOrderCode;
+    public void setBillingAdjustment(BigDecimal billingAdjustment) {
+        this.billingAdjustment = billingAdjustment;
     }
 
-    public Date getServiceOrderCreationDate() {
-        return serviceOrderCreationDate;
+    public String getComments() {
+        return comments;
     }
 
-    public void setServiceOrderCreationDate(Date serviceOrderCreationDate) {
-        this.serviceOrderCreationDate = serviceOrderCreationDate;
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public Boolean getExchangeModified() {
+        return exchangeModified;
+    }
+
+    public void setExchangeModified(Boolean exchangeModified) {
+        this.exchangeModified = exchangeModified;
     }
 
     public BigDecimal getExchangeRate() {
@@ -178,36 +188,36 @@ public class ServiceOrder implements Serializable {
         this.operatingInstructions = operatingInstructions;
     }
 
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
-    public BigDecimal getBillingAdjustment() {
-        return billingAdjustment;
-    }
-
-    public void setBillingAdjustment(BigDecimal billingAdjustment) {
-        this.billingAdjustment = billingAdjustment;
-    }
-
-    public BigInteger getPaymentReceiptId() {
+    public BigDecimal getPaymentReceiptId() {
         return paymentReceiptId;
     }
 
-    public void setPaymentReceiptId(BigInteger paymentReceiptId) {
+    public void setPaymentReceiptId(BigDecimal paymentReceiptId) {
         this.paymentReceiptId = paymentReceiptId;
     }
 
-    public Boolean getExchangeModified() {
-        return exchangeModified;
+    public String getServiceOrderCode() {
+        return serviceOrderCode;
     }
 
-    public void setExchangeModified(Boolean exchangeModified) {
-        this.exchangeModified = exchangeModified;
+    public void setServiceOrderCode(String serviceOrderCode) {
+        this.serviceOrderCode = serviceOrderCode;
+    }
+
+    public Date getServiceOrderCreationDate() {
+        return serviceOrderCreationDate;
+    }
+
+    public void setServiceOrderCreationDate(Date serviceOrderCreationDate) {
+        this.serviceOrderCreationDate = serviceOrderCreationDate;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Boolean getTypeServiceOrder() {
@@ -218,12 +228,20 @@ public class ServiceOrder implements Serializable {
         this.typeServiceOrder = typeServiceOrder;
     }
 
-    public boolean getStatus() {
-        return status;
+    public Line getLineId() {
+        return lineId;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setLineId(Line lineId) {
+        this.lineId = lineId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @XmlTransient
@@ -305,14 +323,6 @@ public class ServiceOrder implements Serializable {
         this.itineraryId = itineraryId;
     }
 
-    public Line getLineId() {
-        return lineId;
-    }
-
-    public void setLineId(Line lineId) {
-        this.lineId = lineId;
-    }
-
     public ServiceOrderStatus getServiceOrderStatusId() {
         return serviceOrderStatusId;
     }
@@ -329,37 +339,8 @@ public class ServiceOrder implements Serializable {
         this.shipOwnerId = shipOwnerId;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (serviceOrderId != null ? serviceOrderId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ServiceOrder)) {
-            return false;
-        }
-        ServiceOrder other = (ServiceOrder) object;
-        if ((this.serviceOrderId == null && other.serviceOrderId != null) || (this.serviceOrderId != null && !this.serviceOrderId.equals(other.serviceOrderId))) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "mx.tab.wgp.qsmaritimex.entidades.ServiceOrder[ serviceOrderId=" + serviceOrderId + " ]";
+        return "ServiceOrder{" + "serviceOrderId=" + serviceOrderId + ", billingAdjustment=" + billingAdjustment + ", comments=" + comments + ", exchangeModified=" + exchangeModified + ", exchangeRate=" + exchangeRate + ", finalExchangeRate=" + finalExchangeRate + ", operatingInstructions=" + operatingInstructions + ", paymentReceiptId=" + paymentReceiptId + ", serviceOrderCode=" + serviceOrderCode + ", serviceOrderCreationDate=" + serviceOrderCreationDate + ", status=" + status + ", typeServiceOrder=" + typeServiceOrder + ", userId=" + userId + ", currencyId=" + currencyId + ", itineraryId=" + itineraryId + ", serviceOrderStatusId=" + serviceOrderStatusId + ", shipOwnerId=" + shipOwnerId + ", lineId=" + lineId + '}';
     }
-    
 }

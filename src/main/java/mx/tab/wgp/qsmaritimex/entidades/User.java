@@ -15,93 +15,86 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
-    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "User.findByCreateDate", query = "SELECT u FROM User u WHERE u.createDate = :createDate"),
-    @NamedQuery(name = "User.findByInAD", query = "SELECT u FROM User u WHERE u.inAD = :inAD"),
-    @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status"),
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
-    @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")})
+@Table(name = "[User]")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "UserId", nullable = false)
     private Integer userId;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 50)
-    private String userName;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 100)
-    private String password;
-    @Column(length = 200)
-    private String email;
-    @Column(length = 20)
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "UserName", nullable = false)
+    private String userName;
+    @Basic(optional = false)
+    @Column(name = "Password", nullable = false)
+    private String password;
+    @Column(name = "Email")
+    private String email;
+    @Column(name = "Name")
+    private String name;
+    @Column(name = "LastName")
+    private String lastName;
+    @Basic(optional = false)
+    @Column(name = "InAD", nullable = false)
+    private Boolean inAD;
+    @Basic(optional = false)
+    @Column(name = "Status", nullable = false)
+    private Boolean status;
+    @Basic(optional = false)
+    @Column(name = "CreateDate", nullable = false)    
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private boolean inAD;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private boolean status;
-    @Column(length = 50)
-    private String name;
-    @Column(length = 50)
-    private String lastName;
-    @OneToMany(mappedBy = "updateUserId")
-    private Collection<ServiceOrderService> serviceOrderServiceCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    //-----------------------------------
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
     private Collection<UserLine> userLineCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<UserRol> userRolCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<UserEnterprise> userEnterpriseCollection;
-    @OneToMany(mappedBy = "userId")
-    private Collection<ServiceOrder> serviceOrderCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<UserCargoType> userCargoTypeCollection;
 
     public User() {
     }
 
-    public User(Integer userId) {
-        this.userId = userId;
+    public Boolean getInAD() {
+        return inAD;
     }
 
-    public User(Integer userId, String userName, String password, Date createDate, boolean inAD, boolean status) {
-        this.userId = userId;
-        this.userName = userName;
-        this.password = password;
-        this.createDate = createDate;
+    public void setInAD(Boolean inAD) {
         this.inAD = inAD;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Collection<UserLine> getUserLineCollection() {
+        return userLineCollection;
+    }
+
+    public void setUserLineCollection(Collection<UserLine> userLineCollection) {
+        this.userLineCollection = userLineCollection;
     }
 
     public Integer getUserId() {
@@ -110,6 +103,14 @@ public class User implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getUserName() {
@@ -136,38 +137,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public boolean getInAD() {
-        return inAD;
-    }
-
-    public void setInAD(boolean inAD) {
-        this.inAD = inAD;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public String getName() {
         return name;
     }
@@ -184,83 +153,8 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    @XmlTransient
-    public Collection<ServiceOrderService> getServiceOrderServiceCollection() {
-        return serviceOrderServiceCollection;
-    }
-
-    public void setServiceOrderServiceCollection(Collection<ServiceOrderService> serviceOrderServiceCollection) {
-        this.serviceOrderServiceCollection = serviceOrderServiceCollection;
-    }
-
-    @XmlTransient
-    public Collection<UserLine> getUserLineCollection() {
-        return userLineCollection;
-    }
-
-    public void setUserLineCollection(Collection<UserLine> userLineCollection) {
-        this.userLineCollection = userLineCollection;
-    }
-
-    @XmlTransient
-    public Collection<UserRol> getUserRolCollection() {
-        return userRolCollection;
-    }
-
-    public void setUserRolCollection(Collection<UserRol> userRolCollection) {
-        this.userRolCollection = userRolCollection;
-    }
-
-    @XmlTransient
-    public Collection<UserEnterprise> getUserEnterpriseCollection() {
-        return userEnterpriseCollection;
-    }
-
-    public void setUserEnterpriseCollection(Collection<UserEnterprise> userEnterpriseCollection) {
-        this.userEnterpriseCollection = userEnterpriseCollection;
-    }
-
-    @XmlTransient
-    public Collection<ServiceOrder> getServiceOrderCollection() {
-        return serviceOrderCollection;
-    }
-
-    public void setServiceOrderCollection(Collection<ServiceOrder> serviceOrderCollection) {
-        this.serviceOrderCollection = serviceOrderCollection;
-    }
-
-    @XmlTransient
-    public Collection<UserCargoType> getUserCargoTypeCollection() {
-        return userCargoTypeCollection;
-    }
-
-    public void setUserCargoTypeCollection(Collection<UserCargoType> userCargoTypeCollection) {
-        this.userCargoTypeCollection = userCargoTypeCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "mx.tab.wgp.qsmaritimex.entidades.User[ userId=" + userId + " ]";
+        return "User{" + "userId=" + userId + ", phoneNumber=" + phoneNumber + ", userName=" + userName + ", password=" + password + ", email=" + email + ", name=" + name + ", lastName=" + lastName + ", inAD=" + inAD + ", status=" + status + ", createDate=" + createDate + '}';
     }
-    
 }

@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,23 +23,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author WilliamGP025
+ * @author William
  */
 @Entity
-@Table(catalog = "QSMaritimex", schema = "dbo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ServiceTransferLog.findAll", query = "SELECT s FROM ServiceTransferLog s"),
     @NamedQuery(name = "ServiceTransferLog.findByServiceTransferLogId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceTransferLogId = :serviceTransferLogId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderOriginId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderOriginId = :serviceOrderOriginId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderEndId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderEndId = :serviceOrderEndId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderServicesOriginId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderServicesOriginId = :serviceOrderServicesOriginId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderServicesEndId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderServicesEndId = :serviceOrderServicesEndId"),
     @NamedQuery(name = "ServiceTransferLog.findByAmount", query = "SELECT s FROM ServiceTransferLog s WHERE s.amount = :amount"),
     @NamedQuery(name = "ServiceTransferLog.findByNote", query = "SELECT s FROM ServiceTransferLog s WHERE s.note = :note"),
+    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderEndId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderEndId = :serviceOrderEndId"),
+    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderOriginId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderOriginId = :serviceOrderOriginId"),
+    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderServicesEndId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderServicesEndId = :serviceOrderServicesEndId"),
+    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderServicesOriginId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderServicesOriginId = :serviceOrderServicesOriginId"),
+    @NamedQuery(name = "ServiceTransferLog.findByStatus", query = "SELECT s FROM ServiceTransferLog s WHERE s.status = :status"),
     @NamedQuery(name = "ServiceTransferLog.findByUpdatedBy", query = "SELECT s FROM ServiceTransferLog s WHERE s.updatedBy = :updatedBy"),
-    @NamedQuery(name = "ServiceTransferLog.findByUpdatedOn", query = "SELECT s FROM ServiceTransferLog s WHERE s.updatedOn = :updatedOn"),
-    @NamedQuery(name = "ServiceTransferLog.findByStatus", query = "SELECT s FROM ServiceTransferLog s WHERE s.status = :status")})
+    @NamedQuery(name = "ServiceTransferLog.findByUpdatedOn", query = "SELECT s FROM ServiceTransferLog s WHERE s.updatedOn = :updatedOn")})
 public class ServiceTransferLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,22 +46,22 @@ public class ServiceTransferLog implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer serviceTransferLogId;
-    private Integer serviceOrderOriginId;
-    private Integer serviceOrderEndId;
-    private Integer serviceOrderServicesOriginId;
-    private Integer serviceOrderServicesEndId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(precision = 19, scale = 4)
     private BigDecimal amount;
     @Column(length = 1000)
     private String note;
+    private Integer serviceOrderEndId;
+    private Integer serviceOrderOriginId;
+    private Integer serviceOrderServicesEndId;
+    private Integer serviceOrderServicesOriginId;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private boolean status;
     @Column(length = 50)
     private String updatedBy;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private boolean status;
     @OneToMany(mappedBy = "serviceTransferLogId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
 
@@ -87,38 +85,6 @@ public class ServiceTransferLog implements Serializable {
         this.serviceTransferLogId = serviceTransferLogId;
     }
 
-    public Integer getServiceOrderOriginId() {
-        return serviceOrderOriginId;
-    }
-
-    public void setServiceOrderOriginId(Integer serviceOrderOriginId) {
-        this.serviceOrderOriginId = serviceOrderOriginId;
-    }
-
-    public Integer getServiceOrderEndId() {
-        return serviceOrderEndId;
-    }
-
-    public void setServiceOrderEndId(Integer serviceOrderEndId) {
-        this.serviceOrderEndId = serviceOrderEndId;
-    }
-
-    public Integer getServiceOrderServicesOriginId() {
-        return serviceOrderServicesOriginId;
-    }
-
-    public void setServiceOrderServicesOriginId(Integer serviceOrderServicesOriginId) {
-        this.serviceOrderServicesOriginId = serviceOrderServicesOriginId;
-    }
-
-    public Integer getServiceOrderServicesEndId() {
-        return serviceOrderServicesEndId;
-    }
-
-    public void setServiceOrderServicesEndId(Integer serviceOrderServicesEndId) {
-        this.serviceOrderServicesEndId = serviceOrderServicesEndId;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
@@ -135,6 +101,46 @@ public class ServiceTransferLog implements Serializable {
         this.note = note;
     }
 
+    public Integer getServiceOrderEndId() {
+        return serviceOrderEndId;
+    }
+
+    public void setServiceOrderEndId(Integer serviceOrderEndId) {
+        this.serviceOrderEndId = serviceOrderEndId;
+    }
+
+    public Integer getServiceOrderOriginId() {
+        return serviceOrderOriginId;
+    }
+
+    public void setServiceOrderOriginId(Integer serviceOrderOriginId) {
+        this.serviceOrderOriginId = serviceOrderOriginId;
+    }
+
+    public Integer getServiceOrderServicesEndId() {
+        return serviceOrderServicesEndId;
+    }
+
+    public void setServiceOrderServicesEndId(Integer serviceOrderServicesEndId) {
+        this.serviceOrderServicesEndId = serviceOrderServicesEndId;
+    }
+
+    public Integer getServiceOrderServicesOriginId() {
+        return serviceOrderServicesOriginId;
+    }
+
+    public void setServiceOrderServicesOriginId(Integer serviceOrderServicesOriginId) {
+        this.serviceOrderServicesOriginId = serviceOrderServicesOriginId;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public String getUpdatedBy() {
         return updatedBy;
     }
@@ -149,14 +155,6 @@ public class ServiceTransferLog implements Serializable {
 
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     @XmlTransient
