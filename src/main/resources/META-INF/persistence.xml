@@ -75,11 +75,10 @@
     <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderFileType</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.Enterprise</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/QSMaritimex2"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/QSMaritimex"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>
       <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="Lucerna1"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
