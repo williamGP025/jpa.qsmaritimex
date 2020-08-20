@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author William
  */
 @Entity
+@Table(name = "ServiceOrderStatus")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ServiceOrderStatus.findAll", query = "SELECT s FROM ServiceOrderStatus s"),
@@ -45,6 +47,7 @@ public class ServiceOrderStatus implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean status;
+    //--------------------------------------------------------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderStatusId")
     private Collection<ServiceOrder> serviceOrderCollection;
 

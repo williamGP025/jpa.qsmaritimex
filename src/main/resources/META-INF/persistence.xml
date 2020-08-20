@@ -71,6 +71,8 @@
     <class>mx.tab.wgp.qsmaritimex.entidades.BookingStatus</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.UserCargoType</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.User</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.Service</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceType</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/QSMaritimex2"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

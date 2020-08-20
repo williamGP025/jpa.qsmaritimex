@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,10 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserEnterprise.findAll", query = "SELECT u FROM UserEnterprise u"),
-    @NamedQuery(name = "UserEnterprise.findByUserEnterpriseId", query = "SELECT u FROM UserEnterprise u WHERE u.userEnterpriseId = :userEnterpriseId"),
-    @NamedQuery(name = "UserEnterprise.findByUserId", query = "SELECT u FROM UserEnterprise u WHERE u.userId = :userId")})
+@Table(name = "UserEnterprise")
 public class UserEnterprise implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,9 +32,11 @@ public class UserEnterprise implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer userEnterpriseId;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private int userId;
+    //--------------------------------------------------------------------------
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
+    @ManyToOne(optional = false)
+    private User userId;
+    
     @JoinColumn(name = "EnterpriseId", referencedColumnName = "enterpriseId", nullable = false)
     @ManyToOne(optional = false)
     private Enterprise enterpriseId;
@@ -50,7 +48,7 @@ public class UserEnterprise implements Serializable {
         this.userEnterpriseId = userEnterpriseId;
     }
 
-    public UserEnterprise(Integer userEnterpriseId, int userId) {
+    public UserEnterprise(Integer userEnterpriseId, User userId) {
         this.userEnterpriseId = userEnterpriseId;
         this.userId = userId;
     }
@@ -63,11 +61,11 @@ public class UserEnterprise implements Serializable {
         this.userEnterpriseId = userEnterpriseId;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

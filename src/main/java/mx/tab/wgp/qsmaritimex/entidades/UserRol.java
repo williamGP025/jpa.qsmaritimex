@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -23,11 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author William
  */
 @Entity
+@Table(name = "UserRol")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserRol.findAll", query = "SELECT u FROM UserRol u"),
-    @NamedQuery(name = "UserRol.findByUserRolId", query = "SELECT u FROM UserRol u WHERE u.userRolId = :userRolId"),
-    @NamedQuery(name = "UserRol.findByUserId", query = "SELECT u FROM UserRol u WHERE u.userId = :userId")})
 public class UserRol implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,12 +32,13 @@ public class UserRol implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer userRolId;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private int userId;
     @JoinColumn(name = "RolId", referencedColumnName = "rolId", nullable = false)
     @ManyToOne(optional = false)
     private Rol rolId;
+    //--------------------------------------------------------------------------
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
+    @ManyToOne(optional = false)
+    private User userId;
 
     public UserRol() {
     }
@@ -50,7 +47,7 @@ public class UserRol implements Serializable {
         this.userRolId = userRolId;
     }
 
-    public UserRol(Integer userRolId, int userId) {
+    public UserRol(Integer userRolId, User userId) {
         this.userRolId = userRolId;
         this.userId = userId;
     }
@@ -63,11 +60,11 @@ public class UserRol implements Serializable {
         this.userRolId = userRolId;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
@@ -103,5 +100,5 @@ public class UserRol implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.UserRol[ userRolId=" + userRolId + " ]";
     }
-    
+
 }

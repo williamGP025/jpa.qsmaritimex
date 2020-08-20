@@ -16,8 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,16 +27,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(name = "Line")
-@NamedQueries({
-    @NamedQuery(name = "Line.findAll", query = "SELECT l FROM Line l"),
-    @NamedQuery(name = "Line.findByLineId", query = "SELECT l FROM Line l WHERE l.lineId = :lineId"),
-    @NamedQuery(name = "Line.findByName", query = "SELECT l FROM Line l WHERE l.name = :name"),
-    @NamedQuery(name = "Line.findByLineCode", query = "SELECT l FROM Line l WHERE l.lineCode = :lineCode"),
-    @NamedQuery(name = "Line.findByLineNo", query = "SELECT l FROM Line l WHERE l.lineNo = :lineNo"),
-    @NamedQuery(name = "Line.findByCaat", query = "SELECT l FROM Line l WHERE l.caat = :caat"),
-    @NamedQuery(name = "Line.findByNotificationEmail", query = "SELECT l FROM Line l WHERE l.notificationEmail = :notificationEmail"),
-    @NamedQuery(name = "Line.findByShipOwnerId", query = "SELECT l FROM Line l WHERE l.shipOwnerId = :shipOwnerId"),
-    @NamedQuery(name = "Line.findByStatus", query = "SELECT l FROM Line l WHERE l.status = :status")})
 public class Line implements Serializable {
 
     private static final long serialVersionUID = 1L;

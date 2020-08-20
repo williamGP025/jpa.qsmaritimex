@@ -55,14 +55,69 @@ public class User implements Serializable {
     @Column(name = "Status", nullable = false)
     private Boolean status;
     @Basic(optional = false)
-    @Column(name = "CreateDate", nullable = false)    
+    @Column(name = "CreateDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     //-----------------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
     private Collection<UserLine> userLineCollection;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    private Collection<ServiceOrder> serviceOrderCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    private Collection<UserRol> userRolCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    private Collection<UserCargoType> userCargoTypeCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    private Collection<UserEnterprise> userEnterpriseCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UpdateUserId")
+    private Collection<ServiceOrderService> serviceOrderServiceCollection;
+
     public User() {
+    }
+
+    public Collection<UserCargoType> getUserCargoTypeCollection() {
+        return userCargoTypeCollection;
+    }
+
+    public void setUserCargoTypeCollection(Collection<UserCargoType> userCargoTypeCollection) {
+        this.userCargoTypeCollection = userCargoTypeCollection;
+    }
+
+    public Collection<UserEnterprise> getUserEnterpriseCollection() {
+        return userEnterpriseCollection;
+    }
+
+    public void setUserEnterpriseCollection(Collection<UserEnterprise> userEnterpriseCollection) {
+        this.userEnterpriseCollection = userEnterpriseCollection;
+    }
+
+    public Collection<ServiceOrderService> getServiceOrderServiceCollection() {
+        return serviceOrderServiceCollection;
+    }
+
+    public void setServiceOrderServiceCollection(Collection<ServiceOrderService> serviceOrderServiceCollection) {
+        this.serviceOrderServiceCollection = serviceOrderServiceCollection;
+    }
+
+    public Collection<UserRol> getUserRolCollection() {
+        return userRolCollection;
+    }
+
+    public void setUserRolCollection(Collection<UserRol> userRolCollection) {
+        this.userRolCollection = userRolCollection;
+    }
+
+    public Collection<ServiceOrder> getServiceOrderCollection() {
+        return serviceOrderCollection;
+    }
+
+    public void setServiceOrderCollection(Collection<ServiceOrder> serviceOrderCollection) {
+        this.serviceOrderCollection = serviceOrderCollection;
     }
 
     public Boolean getInAD() {

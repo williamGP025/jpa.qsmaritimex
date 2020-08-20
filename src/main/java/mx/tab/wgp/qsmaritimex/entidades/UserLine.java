@@ -14,8 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,11 +24,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "UserLine")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UserLine.findAll", query = "SELECT u FROM UserLine u"),
-    @NamedQuery(name = "UserLine.findByUserLineId", query = "SELECT u FROM UserLine u WHERE u.userLineId = :userLineId"),
-    @NamedQuery(name = "UserLine.findByLineId", query = "SELECT u FROM UserLine u WHERE u.lineId = :lineId"),
-    @NamedQuery(name = "UserLine.findByUserId", query = "SELECT u FROM UserLine u WHERE u.userId = :userId")})
 public class UserLine implements Serializable {
 
     private static final long serialVersionUID = 1L;

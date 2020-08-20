@@ -16,9 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,38 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Vessel.findAll", query = "SELECT v FROM Vessel v"),
-    @NamedQuery(name = "Vessel.findByVesselId", query = "SELECT v FROM Vessel v WHERE v.vesselId = :vesselId"),
-    @NamedQuery(name = "Vessel.findByBow", query = "SELECT v FROM Vessel v WHERE v.bow = :bow"),
-    @NamedQuery(name = "Vessel.findByCallLetters", query = "SELECT v FROM Vessel v WHERE v.callLetters = :callLetters"),
-    @NamedQuery(name = "Vessel.findByCapTEUS", query = "SELECT v FROM Vessel v WHERE v.capTEUS = :capTEUS"),
-    @NamedQuery(name = "Vessel.findByCaptain", query = "SELECT v FROM Vessel v WHERE v.captain = :captain"),
-    @NamedQuery(name = "Vessel.findByClassification", query = "SELECT v FROM Vessel v WHERE v.classification = :classification"),
-    @NamedQuery(name = "Vessel.findByConstructionYear", query = "SELECT v FROM Vessel v WHERE v.constructionYear = :constructionYear"),
-    @NamedQuery(name = "Vessel.findByCraneCapacity", query = "SELECT v FROM Vessel v WHERE v.craneCapacity = :craneCapacity"),
-    @NamedQuery(name = "Vessel.findByCranes", query = "SELECT v FROM Vessel v WHERE v.cranes = :cranes"),
-    @NamedQuery(name = "Vessel.findByDeadWeight", query = "SELECT v FROM Vessel v WHERE v.deadWeight = :deadWeight"),
-    @NamedQuery(name = "Vessel.findByDraft", query = "SELECT v FROM Vessel v WHERE v.draft = :draft"),
-    @NamedQuery(name = "Vessel.findByEmail", query = "SELECT v FROM Vessel v WHERE v.email = :email"),
-    @NamedQuery(name = "Vessel.findByFax", query = "SELECT v FROM Vessel v WHERE v.fax = :fax"),
-    @NamedQuery(name = "Vessel.findByGrt", query = "SELECT v FROM Vessel v WHERE v.grt = :grt"),
-    @NamedQuery(name = "Vessel.findByHatch", query = "SELECT v FROM Vessel v WHERE v.hatch = :hatch"),
-    @NamedQuery(name = "Vessel.findByHolds", query = "SELECT v FROM Vessel v WHERE v.holds = :holds"),
-    @NamedQuery(name = "Vessel.findByLengthVessel", query = "SELECT v FROM Vessel v WHERE v.lengthVessel = :lengthVessel"),
-    @NamedQuery(name = "Vessel.findByName", query = "SELECT v FROM Vessel v WHERE v.name = :name"),
-    @NamedQuery(name = "Vessel.findByNrt", query = "SELECT v FROM Vessel v WHERE v.nrt = :nrt"),
-    @NamedQuery(name = "Vessel.findByOwner", query = "SELECT v FROM Vessel v WHERE v.owner = :owner"),
-    @NamedQuery(name = "Vessel.findByProp", query = "SELECT v FROM Vessel v WHERE v.prop = :prop"),
-    @NamedQuery(name = "Vessel.findByRegistryNumIMO", query = "SELECT v FROM Vessel v WHERE v.registryNumIMO = :registryNumIMO"),
-    @NamedQuery(name = "Vessel.findBySatcom", query = "SELECT v FROM Vessel v WHERE v.satcom = :satcom"),
-    @NamedQuery(name = "Vessel.findBySleeve", query = "SELECT v FROM Vessel v WHERE v.sleeve = :sleeve"),
-    @NamedQuery(name = "Vessel.findByStatus", query = "SELECT v FROM Vessel v WHERE v.status = :status"),
-    @NamedQuery(name = "Vessel.findByStern", query = "SELECT v FROM Vessel v WHERE v.stern = :stern"),
-    @NamedQuery(name = "Vessel.findByTelephone", query = "SELECT v FROM Vessel v WHERE v.telephone = :telephone"),
-    @NamedQuery(name = "Vessel.findByTelex", query = "SELECT v FROM Vessel v WHERE v.telex = :telex"),
-    @NamedQuery(name = "Vessel.findByTrafficType", query = "SELECT v FROM Vessel v WHERE v.trafficType = :trafficType"),
-    @NamedQuery(name = "Vessel.findByServiceTypeId", query = "SELECT v FROM Vessel v WHERE v.serviceTypeId = :serviceTypeId")})
+@Table(name = "Vessel")
 public class Vessel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -126,7 +94,10 @@ public class Vessel implements Serializable {
     private String telex;
     @Column(length = 255)
     private String trafficType;
-    private Integer serviceTypeId;
+    //-------------------------------------------------------------    
+    @JoinColumn(name = "ServiceTypeId", referencedColumnName = "ServiceTypeId", nullable = true)
+    @ManyToOne(optional = true)
+    private ServiceType serviceTypeId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vesselId")
     private Collection<Itinerary> itineraryCollection;
     @JoinColumn(name = "CountryId", referencedColumnName = "countryId", nullable = false)
@@ -383,11 +354,11 @@ public class Vessel implements Serializable {
         this.trafficType = trafficType;
     }
 
-    public Integer getServiceTypeId() {
+    public ServiceType getServiceTypeId() {
         return serviceTypeId;
     }
 
-    public void setServiceTypeId(Integer serviceTypeId) {
+    public void setServiceTypeId(ServiceType serviceTypeId) {
         this.serviceTypeId = serviceTypeId;
     }
 
@@ -449,5 +420,5 @@ public class Vessel implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.Vessel[ vesselId=" + vesselId + " ]";
     }
-    
+
 }

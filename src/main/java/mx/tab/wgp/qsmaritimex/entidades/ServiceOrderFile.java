@@ -13,8 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,13 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author William
  */
 @Entity
+@Table(name = "ServiceOrderFile")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ServiceOrderFile.findAll", query = "SELECT s FROM ServiceOrderFile s"),
-    @NamedQuery(name = "ServiceOrderFile.findByServiceOrderFileId", query = "SELECT s FROM ServiceOrderFile s WHERE s.serviceOrderFileId = :serviceOrderFileId"),
-    @NamedQuery(name = "ServiceOrderFile.findByFileName", query = "SELECT s FROM ServiceOrderFile s WHERE s.fileName = :fileName"),
-    @NamedQuery(name = "ServiceOrderFile.findByFileType", query = "SELECT s FROM ServiceOrderFile s WHERE s.fileType = :fileType"),
-    @NamedQuery(name = "ServiceOrderFile.findByStatus", query = "SELECT s FROM ServiceOrderFile s WHERE s.status = :status")})
 public class ServiceOrderFile implements Serializable {
 
     private static final long serialVersionUID = 1L;

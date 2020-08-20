@@ -18,8 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,22 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @XmlRootElement
 @Table(name = "ServiceOrder")
-@NamedQueries({
-    @NamedQuery(name = "ServiceOrder.findAll", query = "SELECT s FROM ServiceOrder s"),
-    @NamedQuery(name = "ServiceOrder.findByServiceOrderId", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderId = :serviceOrderId"),
-    @NamedQuery(name = "ServiceOrder.findByBillingAdjustment", query = "SELECT s FROM ServiceOrder s WHERE s.billingAdjustment = :billingAdjustment"),
-    @NamedQuery(name = "ServiceOrder.findByComments", query = "SELECT s FROM ServiceOrder s WHERE s.comments = :comments"),
-    @NamedQuery(name = "ServiceOrder.findByExchangeModified", query = "SELECT s FROM ServiceOrder s WHERE s.exchangeModified = :exchangeModified"),
-    @NamedQuery(name = "ServiceOrder.findByExchangeRate", query = "SELECT s FROM ServiceOrder s WHERE s.exchangeRate = :exchangeRate"),
-    @NamedQuery(name = "ServiceOrder.findByFinalExchangeRate", query = "SELECT s FROM ServiceOrder s WHERE s.finalExchangeRate = :finalExchangeRate"),
-    @NamedQuery(name = "ServiceOrder.findByOperatingInstructions", query = "SELECT s FROM ServiceOrder s WHERE s.operatingInstructions = :operatingInstructions"),
-    @NamedQuery(name = "ServiceOrder.findByPaymentReceiptId", query = "SELECT s FROM ServiceOrder s WHERE s.paymentReceiptId = :paymentReceiptId"),
-    @NamedQuery(name = "ServiceOrder.findByServiceOrderCode", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderCode = :serviceOrderCode"),
-    @NamedQuery(name = "ServiceOrder.findByServiceOrderCreationDate", query = "SELECT s FROM ServiceOrder s WHERE s.serviceOrderCreationDate = :serviceOrderCreationDate"),
-    @NamedQuery(name = "ServiceOrder.findByStatus", query = "SELECT s FROM ServiceOrder s WHERE s.status = :status"),
-    @NamedQuery(name = "ServiceOrder.findByTypeServiceOrder", query = "SELECT s FROM ServiceOrder s WHERE s.typeServiceOrder = :typeServiceOrder"),
-    @NamedQuery(name = "ServiceOrder.findByLineId", query = "SELECT s FROM ServiceOrder s WHERE s.lineId = :lineId"),
-    @NamedQuery(name = "ServiceOrder.findByUserId", query = "SELECT s FROM ServiceOrder s WHERE s.userId = :userId")})
 public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -84,7 +66,6 @@ public class ServiceOrder implements Serializable {
     @Column(nullable = false)
     private boolean status;
     private Boolean typeServiceOrder;
-    private Integer userId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
@@ -115,6 +96,9 @@ public class ServiceOrder implements Serializable {
     @JoinColumn(name = "LineId", referencedColumnName = "lineId", nullable = false)
     @ManyToOne(optional = false)
     private Line lineId;
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
+    @ManyToOne(optional = false)
+    private User userId;
 
     public ServiceOrder() {
     }
@@ -236,11 +220,11 @@ public class ServiceOrder implements Serializable {
         this.lineId = lineId;
     }
 
-    public Integer getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

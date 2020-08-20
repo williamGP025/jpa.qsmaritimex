@@ -18,9 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,30 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ServiceOrderService.findAll", query = "SELECT s FROM ServiceOrderService s"),
-    @NamedQuery(name = "ServiceOrderService.findByServiceOrderServiceId", query = "SELECT s FROM ServiceOrderService s WHERE s.serviceOrderServiceId = :serviceOrderServiceId"),
-    @NamedQuery(name = "ServiceOrderService.findByAmountPaid", query = "SELECT s FROM ServiceOrderService s WHERE s.amountPaid = :amountPaid"),
-    @NamedQuery(name = "ServiceOrderService.findByCatchErrorAX", query = "SELECT s FROM ServiceOrderService s WHERE s.catchErrorAX = :catchErrorAX"),
-    @NamedQuery(name = "ServiceOrderService.findByCreationDate", query = "SELECT s FROM ServiceOrderService s WHERE s.creationDate = :creationDate"),
-    @NamedQuery(name = "ServiceOrderService.findByCreditNoteBalance", query = "SELECT s FROM ServiceOrderService s WHERE s.creditNoteBalance = :creditNoteBalance"),
-    @NamedQuery(name = "ServiceOrderService.findByCurrencyFee", query = "SELECT s FROM ServiceOrderService s WHERE s.currencyFee = :currencyFee"),
-    @NamedQuery(name = "ServiceOrderService.findByEstimatedPaymentDate", query = "SELECT s FROM ServiceOrderService s WHERE s.estimatedPaymentDate = :estimatedPaymentDate"),
-    @NamedQuery(name = "ServiceOrderService.findByExchangeRateAX", query = "SELECT s FROM ServiceOrderService s WHERE s.exchangeRateAX = :exchangeRateAX"),
-    @NamedQuery(name = "ServiceOrderService.findByFromCancelation", query = "SELECT s FROM ServiceOrderService s WHERE s.fromCancelation = :fromCancelation"),
-    @NamedQuery(name = "ServiceOrderService.findByInvoiceDate", query = "SELECT s FROM ServiceOrderService s WHERE s.invoiceDate = :invoiceDate"),
-    @NamedQuery(name = "ServiceOrderService.findByInvoiceNumber", query = "SELECT s FROM ServiceOrderService s WHERE s.invoiceNumber = :invoiceNumber"),
-    @NamedQuery(name = "ServiceOrderService.findByIscreditNoteBit", query = "SELECT s FROM ServiceOrderService s WHERE s.iscreditNoteBit = :iscreditNoteBit"),
-    @NamedQuery(name = "ServiceOrderService.findByReinvoicing", query = "SELECT s FROM ServiceOrderService s WHERE s.reinvoicing = :reinvoicing"),
-    @NamedQuery(name = "ServiceOrderService.findByStatus", query = "SELECT s FROM ServiceOrderService s WHERE s.status = :status"),
-    @NamedQuery(name = "ServiceOrderService.findByTotalPaid", query = "SELECT s FROM ServiceOrderService s WHERE s.totalPaid = :totalPaid"),
-    @NamedQuery(name = "ServiceOrderService.findByTotalPrice", query = "SELECT s FROM ServiceOrderService s WHERE s.totalPrice = :totalPrice"),
-    @NamedQuery(name = "ServiceOrderService.findByTotalPriceUSD", query = "SELECT s FROM ServiceOrderService s WHERE s.totalPriceUSD = :totalPriceUSD"),
-    @NamedQuery(name = "ServiceOrderService.findByUpdateDate", query = "SELECT s FROM ServiceOrderService s WHERE s.updateDate = :updateDate"),
-    @NamedQuery(name = "ServiceOrderService.findByValidInvoice", query = "SELECT s FROM ServiceOrderService s WHERE s.validInvoice = :validInvoice"),
-    @NamedQuery(name = "ServiceOrderService.findByVoucher", query = "SELECT s FROM ServiceOrderService s WHERE s.voucher = :voucher"),
-    @NamedQuery(name = "ServiceOrderService.findByServiceId", query = "SELECT s FROM ServiceOrderService s WHERE s.serviceId = :serviceId"),
-    @NamedQuery(name = "ServiceOrderService.findByUpdateUserId", query = "SELECT s FROM ServiceOrderService s WHERE s.updateUserId = :updateUserId")})
+@Table(name = "ServiceOrderService")
 public class ServiceOrderService implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,8 +77,14 @@ public class ServiceOrderService implements Serializable {
     private Boolean validInvoice;
     @Column(length = 50)
     private String voucher;
-    private Integer serviceId;
-    private Integer updateUserId;
+    //--------------------------------------------------------------------------
+    @JoinColumn(name = "ServiceId", referencedColumnName = "ServiceId", nullable = true)
+    @ManyToOne(optional = true)
+    private Service serviceId;
+    @JoinColumn(name = "UpdateUserId", referencedColumnName = "UserId", nullable = true)
+    @ManyToOne(optional = true)
+    private User updateUserId;
+
     @JoinColumn(name = "CurrencyId", referencedColumnName = "currencyId")
     @ManyToOne
     private Currency currencyId;
@@ -303,19 +285,19 @@ public class ServiceOrderService implements Serializable {
         this.voucher = voucher;
     }
 
-    public Integer getServiceId() {
+    public Service getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(Integer serviceId) {
+    public void setServiceId(Service serviceId) {
         this.serviceId = serviceId;
     }
 
-    public Integer getUpdateUserId() {
+    public User getUpdateUserId() {
         return updateUserId;
     }
 
-    public void setUpdateUserId(Integer updateUserId) {
+    public void setUpdateUserId(User updateUserId) {
         this.updateUserId = updateUserId;
     }
 
@@ -416,5 +398,5 @@ public class ServiceOrderService implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.ServiceOrderService[ serviceOrderServiceId=" + serviceOrderServiceId + " ]";
     }
-    
+
 }
