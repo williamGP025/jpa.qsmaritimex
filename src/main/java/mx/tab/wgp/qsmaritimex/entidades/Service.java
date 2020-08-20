@@ -73,8 +73,18 @@ public class Service implements Serializable {
     //-------------------------------------------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ServiceId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ServiceId")
+    private Collection<ServiceOrderServicesTemplate> serviceOrderServicesTemplateCollection;
 
     public Service() {
+    }
+
+    public Collection<ServiceOrderServicesTemplate> getServiceOrderServicesTemplateCollection() {
+        return serviceOrderServicesTemplateCollection;
+    }
+
+    public void setServiceOrderServicesTemplateCollection(Collection<ServiceOrderServicesTemplate> serviceOrderServicesTemplateCollection) {
+        this.serviceOrderServicesTemplateCollection = serviceOrderServicesTemplateCollection;
     }
 
     public Collection<ServiceOrderService> getServiceOrderServiceCollection() {
