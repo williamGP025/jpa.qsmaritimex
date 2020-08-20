@@ -14,11 +14,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrder;
+import mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderService;
 
 /**
  *
@@ -26,13 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c"),
-    @NamedQuery(name = "Currency.findByCurrencyId", query = "SELECT c FROM Currency c WHERE c.currencyId = :currencyId"),
-    @NamedQuery(name = "Currency.findByAbbreviation", query = "SELECT c FROM Currency c WHERE c.abbreviation = :abbreviation"),
-    @NamedQuery(name = "Currency.findByEnable", query = "SELECT c FROM Currency c WHERE c.enable = :enable"),
-    @NamedQuery(name = "Currency.findByName", query = "SELECT c FROM Currency c WHERE c.name = :name"),
-    @NamedQuery(name = "Currency.findByStatus", query = "SELECT c FROM Currency c WHERE c.status = :status")})
+@Table(name = "Currency")
 public class Currency implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -12,8 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,13 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ParameterSetting.findAll", query = "SELECT p FROM ParameterSetting p"),
-    @NamedQuery(name = "ParameterSetting.findByParameterSettingId", query = "SELECT p FROM ParameterSetting p WHERE p.parameterSettingId = :parameterSettingId"),
-    @NamedQuery(name = "ParameterSetting.findByDescription", query = "SELECT p FROM ParameterSetting p WHERE p.description = :description"),
-    @NamedQuery(name = "ParameterSetting.findByName", query = "SELECT p FROM ParameterSetting p WHERE p.name = :name"),
-    @NamedQuery(name = "ParameterSetting.findByStatus", query = "SELECT p FROM ParameterSetting p WHERE p.status = :status"),
-    @NamedQuery(name = "ParameterSetting.findByValue", query = "SELECT p FROM ParameterSetting p WHERE p.value = :value")})
+@Table(name = "ParameterSetting")
 public class ParameterSetting implements Serializable {
 
     private static final long serialVersionUID = 1L;

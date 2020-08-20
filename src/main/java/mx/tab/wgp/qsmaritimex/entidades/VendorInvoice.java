@@ -15,11 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderService;
 
 /**
  *
@@ -27,15 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "VendorInvoice.findAll", query = "SELECT v FROM VendorInvoice v"),
-    @NamedQuery(name = "VendorInvoice.findByVendorInvoiceID", query = "SELECT v FROM VendorInvoice v WHERE v.vendorInvoiceID = :vendorInvoiceID"),
-    @NamedQuery(name = "VendorInvoice.findByAdvancePaymentFile", query = "SELECT v FROM VendorInvoice v WHERE v.advancePaymentFile = :advancePaymentFile"),
-    @NamedQuery(name = "VendorInvoice.findByDescription", query = "SELECT v FROM VendorInvoice v WHERE v.description = :description"),
-    @NamedQuery(name = "VendorInvoice.findByInvoiceFile", query = "SELECT v FROM VendorInvoice v WHERE v.invoiceFile = :invoiceFile"),
-    @NamedQuery(name = "VendorInvoice.findByInvoiceFileName", query = "SELECT v FROM VendorInvoice v WHERE v.invoiceFileName = :invoiceFileName"),
-    @NamedQuery(name = "VendorInvoice.findByNotes", query = "SELECT v FROM VendorInvoice v WHERE v.notes = :notes"),
-    @NamedQuery(name = "VendorInvoice.findByStatus", query = "SELECT v FROM VendorInvoice v WHERE v.status = :status")})
+@Table(name = "VendorInvoice")
 public class VendorInvoice implements Serializable {
 
     private static final long serialVersionUID = 1L;

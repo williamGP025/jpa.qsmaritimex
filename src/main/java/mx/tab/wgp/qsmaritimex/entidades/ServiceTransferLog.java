@@ -13,13 +13,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderService;
 
 /**
  *
@@ -27,18 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ServiceTransferLog.findAll", query = "SELECT s FROM ServiceTransferLog s"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceTransferLogId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceTransferLogId = :serviceTransferLogId"),
-    @NamedQuery(name = "ServiceTransferLog.findByAmount", query = "SELECT s FROM ServiceTransferLog s WHERE s.amount = :amount"),
-    @NamedQuery(name = "ServiceTransferLog.findByNote", query = "SELECT s FROM ServiceTransferLog s WHERE s.note = :note"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderEndId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderEndId = :serviceOrderEndId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderOriginId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderOriginId = :serviceOrderOriginId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderServicesEndId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderServicesEndId = :serviceOrderServicesEndId"),
-    @NamedQuery(name = "ServiceTransferLog.findByServiceOrderServicesOriginId", query = "SELECT s FROM ServiceTransferLog s WHERE s.serviceOrderServicesOriginId = :serviceOrderServicesOriginId"),
-    @NamedQuery(name = "ServiceTransferLog.findByStatus", query = "SELECT s FROM ServiceTransferLog s WHERE s.status = :status"),
-    @NamedQuery(name = "ServiceTransferLog.findByUpdatedBy", query = "SELECT s FROM ServiceTransferLog s WHERE s.updatedBy = :updatedBy"),
-    @NamedQuery(name = "ServiceTransferLog.findByUpdatedOn", query = "SELECT s FROM ServiceTransferLog s WHERE s.updatedOn = :updatedOn")})
+@Table(name = "ServiceTransferLog")
 public class ServiceTransferLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

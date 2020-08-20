@@ -10,8 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,12 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "BookingStatus.findAll", query = "SELECT b FROM BookingStatus b"),
-    @NamedQuery(name = "BookingStatus.findByBookingStatusId", query = "SELECT b FROM BookingStatus b WHERE b.bookingStatusId = :bookingStatusId"),
-    @NamedQuery(name = "BookingStatus.findByDescription", query = "SELECT b FROM BookingStatus b WHERE b.description = :description"),
-    @NamedQuery(name = "BookingStatus.findByStatus", query = "SELECT b FROM BookingStatus b WHERE b.status = :status"),
-    @NamedQuery(name = "BookingStatus.findByStatusId", query = "SELECT b FROM BookingStatus b WHERE b.statusId = :statusId")})
+@Table(name = "BookingStatus")
 public class BookingStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -12,8 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,12 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AmanacAduanaSeccion.findAll", query = "SELECT a FROM AmanacAduanaSeccion a"),
-    @NamedQuery(name = "AmanacAduanaSeccion.findByAduanaSeccionCode", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.aduanaSeccionCode = :aduanaSeccionCode"),
-    @NamedQuery(name = "AmanacAduanaSeccion.findByName", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.name = :name"),
-    @NamedQuery(name = "AmanacAduanaSeccion.findByPortId", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.portId = :portId"),
-    @NamedQuery(name = "AmanacAduanaSeccion.findByStatus", query = "SELECT a FROM AmanacAduanaSeccion a WHERE a.status = :status")})
+@Table(name = "AmanacAduanaSeccion")
 public class AmanacAduanaSeccion implements Serializable {
 
     private static final long serialVersionUID = 1L;

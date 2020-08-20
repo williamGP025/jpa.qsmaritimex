@@ -10,8 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,11 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TransmissionStatus.findAll", query = "SELECT t FROM TransmissionStatus t"),
-    @NamedQuery(name = "TransmissionStatus.findByTransmissionStatusId", query = "SELECT t FROM TransmissionStatus t WHERE t.transmissionStatusId = :transmissionStatusId"),
-    @NamedQuery(name = "TransmissionStatus.findByDescripcion", query = "SELECT t FROM TransmissionStatus t WHERE t.descripcion = :descripcion"),
-    @NamedQuery(name = "TransmissionStatus.findByStatus", query = "SELECT t FROM TransmissionStatus t WHERE t.status = :status")})
+@Table(name = "TransmissionStatus")
 public class TransmissionStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;

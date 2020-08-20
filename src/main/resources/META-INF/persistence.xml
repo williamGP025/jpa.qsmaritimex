@@ -2,78 +2,78 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="qsmaritimex_jpa" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ShipOwner</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.VesselType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderStatus</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.VendorProfile</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogWarning</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.MenuSection</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.AmanacAduanaSeccion</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.NotesServicesOrderService</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.VesselStatus</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ArrivalInformation</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderFile</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ActingRoles</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.WeightUnit</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogCritical</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.UserRol</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderJoinType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.RolScreenObject</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogProcesSuccessful</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.VendorInvoiceStatus</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderServicesType</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.ContainerStatus</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.RolMenu</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.Currency</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderJoin</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.ParameterSetting</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Line</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogError</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.Country</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Enterprise</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderServicesStatus</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ActingRolesType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ScreenObject</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Vessel</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.AmanacMovementType</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.VendorInvoice</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.ServiceTransferLog</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.Company</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Port</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Screen</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderProductType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogLoginAudit</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogInformational</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ScaleType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.UserEnterprise</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.Sysdiagrams</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.TransmissionStatus</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.AmanacMovement</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.ContainerSize</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.VgmPuertos</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.BLTransportType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrder</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Menu</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.CargoType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Rol</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.ContainerType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.VesselPerLine</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.AmanacError</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderFileType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.SpecialRolScreenObject</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.UserLine</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Itinerary</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ReferenceShipOwner</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.VendorFile</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ProductType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderService</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.LogTokenAudit</class>
     <class>mx.tab.wgp.qsmaritimex.entidades.BookingStatus</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.UserCargoType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.User</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.Service</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceType</class>
-    <class>mx.tab.wgp.qsmaritimex.entidades.ServiceOrderServicesTemplate</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.pantalla.RolScreenObject</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.pantalla.Screen</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.pantalla.SpecialRolScreenObject</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.pantalla.ScreenObject</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.menu.Rol</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.menu.RolMenu</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.menu.MenuSection</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.menu.Menu</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogWarning</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogLoginAudit</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogError</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogCritical</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogProcesSuccessful</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogInformational</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.bitacora.LogTokenAudit</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.usuario.User</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.usuario.UserLine</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.usuario.UserRol</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.usuario.UserCargoType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.usuario.UserEnterprise</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderFile</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderJoin</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ActingRolesType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.VesselStatus</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.VesselType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderServicesTemplate</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.CargoType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ShipOwner</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrder</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.Itinerary</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.Vessel</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderServicesType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderService</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.VesselPerLine</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderJoinType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ArrivalInformation</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.Port</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ReferenceShipOwner</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderProductType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.Line</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ScaleType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ProductType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.WeightUnit</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ActingRoles</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderStatus</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderServicesStatus</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.Service</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderFileType</class>
+    <class>mx.tab.wgp.qsmaritimex.entidades.Enterprise</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/QSMaritimex2"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

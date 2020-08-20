@@ -14,11 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderService;
 
 /**
  *
@@ -26,15 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "VendorProfile.findAll", query = "SELECT v FROM VendorProfile v"),
-    @NamedQuery(name = "VendorProfile.findByVendorId", query = "SELECT v FROM VendorProfile v WHERE v.vendorId = :vendorId"),
-    @NamedQuery(name = "VendorProfile.findByEmail", query = "SELECT v FROM VendorProfile v WHERE v.email = :email"),
-    @NamedQuery(name = "VendorProfile.findByName", query = "SELECT v FROM VendorProfile v WHERE v.name = :name"),
-    @NamedQuery(name = "VendorProfile.findByPassword", query = "SELECT v FROM VendorProfile v WHERE v.password = :password"),
-    @NamedQuery(name = "VendorProfile.findByPhone", query = "SELECT v FROM VendorProfile v WHERE v.phone = :phone"),
-    @NamedQuery(name = "VendorProfile.findByStatus", query = "SELECT v FROM VendorProfile v WHERE v.status = :status"),
-    @NamedQuery(name = "VendorProfile.findByVendorAccount", query = "SELECT v FROM VendorProfile v WHERE v.vendorAccount = :vendorAccount")})
+@Table(name = "VendorProfile")
 public class VendorProfile implements Serializable {
 
     private static final long serialVersionUID = 1L;

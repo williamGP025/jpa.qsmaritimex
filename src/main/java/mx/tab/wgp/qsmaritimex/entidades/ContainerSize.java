@@ -12,8 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,12 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ContainerSize.findAll", query = "SELECT c FROM ContainerSize c"),
-    @NamedQuery(name = "ContainerSize.findByContainerSizeId", query = "SELECT c FROM ContainerSize c WHERE c.containerSizeId = :containerSizeId"),
-    @NamedQuery(name = "ContainerSize.findBySize", query = "SELECT c FROM ContainerSize c WHERE c.size = :size"),
-    @NamedQuery(name = "ContainerSize.findByStatus", query = "SELECT c FROM ContainerSize c WHERE c.status = :status"),
-    @NamedQuery(name = "ContainerSize.findByTeus", query = "SELECT c FROM ContainerSize c WHERE c.teus = :teus")})
+@Table(name = "ContainerSize")
 public class ContainerSize implements Serializable {
 
     private static final long serialVersionUID = 1L;

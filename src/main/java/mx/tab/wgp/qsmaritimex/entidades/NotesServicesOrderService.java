@@ -11,8 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -21,13 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "NotesServicesOrderService.findAll", query = "SELECT n FROM NotesServicesOrderService n"),
-    @NamedQuery(name = "NotesServicesOrderService.findByServiceOrderServiceId", query = "SELECT n FROM NotesServicesOrderService n WHERE n.serviceOrderServiceId = :serviceOrderServiceId"),
-    @NamedQuery(name = "NotesServicesOrderService.findByDescription", query = "SELECT n FROM NotesServicesOrderService n WHERE n.description = :description"),
-    @NamedQuery(name = "NotesServicesOrderService.findByIdNotesServiceOrderService", query = "SELECT n FROM NotesServicesOrderService n WHERE n.idNotesServiceOrderService = :idNotesServiceOrderService"),
-    @NamedQuery(name = "NotesServicesOrderService.findByNotes", query = "SELECT n FROM NotesServicesOrderService n WHERE n.notes = :notes"),
-    @NamedQuery(name = "NotesServicesOrderService.findByStatus", query = "SELECT n FROM NotesServicesOrderService n WHERE n.status = :status")})
+@Table(name = "NotesServicesOrderService")
 public class NotesServicesOrderService implements Serializable {
 
     private static final long serialVersionUID = 1L;

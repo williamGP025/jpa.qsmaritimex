@@ -10,8 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,13 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AmanacError.findAll", query = "SELECT a FROM AmanacError a"),
-    @NamedQuery(name = "AmanacError.findByAmanacErrorId", query = "SELECT a FROM AmanacError a WHERE a.amanacErrorId = :amanacErrorId"),
-    @NamedQuery(name = "AmanacError.findByCode", query = "SELECT a FROM AmanacError a WHERE a.code = :code"),
-    @NamedQuery(name = "AmanacError.findByDescription", query = "SELECT a FROM AmanacError a WHERE a.description = :description"),
-    @NamedQuery(name = "AmanacError.findByDescriptionEng", query = "SELECT a FROM AmanacError a WHERE a.descriptionEng = :descriptionEng"),
-    @NamedQuery(name = "AmanacError.findByStatus", query = "SELECT a FROM AmanacError a WHERE a.status = :status")})
+@Table(name = "AmanacError")
 public class AmanacError implements Serializable {
 
     private static final long serialVersionUID = 1L;

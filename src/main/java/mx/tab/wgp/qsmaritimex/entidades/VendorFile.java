@@ -14,9 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderService;
 
 /**
  *
@@ -24,14 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "VendorFile.findAll", query = "SELECT v FROM VendorFile v"),
-    @NamedQuery(name = "VendorFile.findByVendorFileId", query = "SELECT v FROM VendorFile v WHERE v.vendorFileId = :vendorFileId"),
-    @NamedQuery(name = "VendorFile.findByAmount", query = "SELECT v FROM VendorFile v WHERE v.amount = :amount"),
-    @NamedQuery(name = "VendorFile.findByFileName", query = "SELECT v FROM VendorFile v WHERE v.fileName = :fileName"),
-    @NamedQuery(name = "VendorFile.findByFileType", query = "SELECT v FROM VendorFile v WHERE v.fileType = :fileType"),
-    @NamedQuery(name = "VendorFile.findByStatus", query = "SELECT v FROM VendorFile v WHERE v.status = :status"),
-    @NamedQuery(name = "VendorFile.findByVendorFileTypeId", query = "SELECT v FROM VendorFile v WHERE v.vendorFileTypeId = :vendorFileTypeId")})
+@Table(name = "VendorFile")
 public class VendorFile implements Serializable {
 
     private static final long serialVersionUID = 1L;

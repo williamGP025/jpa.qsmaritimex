@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,13 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "Vgm_Puertos")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "VgmPuertos.findAll", query = "SELECT v FROM VgmPuertos v"),
-    @NamedQuery(name = "VgmPuertos.findByVgmPuertosId", query = "SELECT v FROM VgmPuertos v WHERE v.vgmPuertosId = :vgmPuertosId"),
-    @NamedQuery(name = "VgmPuertos.findByIdPuerto", query = "SELECT v FROM VgmPuertos v WHERE v.idPuerto = :idPuerto"),
-    @NamedQuery(name = "VgmPuertos.findByName", query = "SELECT v FROM VgmPuertos v WHERE v.name = :name"),
-    @NamedQuery(name = "VgmPuertos.findByNumPuertoLiner", query = "SELECT v FROM VgmPuertos v WHERE v.numPuertoLiner = :numPuertoLiner"),
-    @NamedQuery(name = "VgmPuertos.findByStatus", query = "SELECT v FROM VgmPuertos v WHERE v.status = :status")})
 public class VgmPuertos implements Serializable {
 
     private static final long serialVersionUID = 1L;

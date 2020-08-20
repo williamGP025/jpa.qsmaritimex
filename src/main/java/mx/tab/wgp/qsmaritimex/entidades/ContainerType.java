@@ -12,8 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,14 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ContainerType.findAll", query = "SELECT c FROM ContainerType c"),
-    @NamedQuery(name = "ContainerType.findByContainerTypeId", query = "SELECT c FROM ContainerType c WHERE c.containerTypeId = :containerTypeId"),
-    @NamedQuery(name = "ContainerType.findByCapacity", query = "SELECT c FROM ContainerType c WHERE c.capacity = :capacity"),
-    @NamedQuery(name = "ContainerType.findByCubicCapacity", query = "SELECT c FROM ContainerType c WHERE c.cubicCapacity = :cubicCapacity"),
-    @NamedQuery(name = "ContainerType.findByDescription", query = "SELECT c FROM ContainerType c WHERE c.description = :description"),
-    @NamedQuery(name = "ContainerType.findBySize", query = "SELECT c FROM ContainerType c WHERE c.size = :size"),
-    @NamedQuery(name = "ContainerType.findByStatus", query = "SELECT c FROM ContainerType c WHERE c.status = :status")})
+@Table(name = "ContainerType")
 public class ContainerType implements Serializable {
 
     private static final long serialVersionUID = 1L;

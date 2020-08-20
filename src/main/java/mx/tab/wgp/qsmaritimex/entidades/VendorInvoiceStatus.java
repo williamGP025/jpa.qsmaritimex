@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -26,11 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "VendorInvoiceStatus.findAll", query = "SELECT v FROM VendorInvoiceStatus v"),
-    @NamedQuery(name = "VendorInvoiceStatus.findByVendorInvoiceStatusId", query = "SELECT v FROM VendorInvoiceStatus v WHERE v.vendorInvoiceStatusId = :vendorInvoiceStatusId"),
-    @NamedQuery(name = "VendorInvoiceStatus.findByDescription", query = "SELECT v FROM VendorInvoiceStatus v WHERE v.description = :description"),
-    @NamedQuery(name = "VendorInvoiceStatus.findByStatus", query = "SELECT v FROM VendorInvoiceStatus v WHERE v.status = :status")})
+@Table(name = "VendorInvoiceStatus")
 public class VendorInvoiceStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;

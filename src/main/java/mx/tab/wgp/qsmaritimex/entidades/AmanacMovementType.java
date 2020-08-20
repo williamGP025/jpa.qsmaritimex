@@ -10,8 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,12 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AmanacMovementType.findAll", query = "SELECT a FROM AmanacMovementType a"),
-    @NamedQuery(name = "AmanacMovementType.findByAmanacMovementTypeId", query = "SELECT a FROM AmanacMovementType a WHERE a.amanacMovementTypeId = :amanacMovementTypeId"),
-    @NamedQuery(name = "AmanacMovementType.findByCode", query = "SELECT a FROM AmanacMovementType a WHERE a.code = :code"),
-    @NamedQuery(name = "AmanacMovementType.findByDescription", query = "SELECT a FROM AmanacMovementType a WHERE a.description = :description"),
-    @NamedQuery(name = "AmanacMovementType.findByStatus", query = "SELECT a FROM AmanacMovementType a WHERE a.status = :status")})
+@Table(name = "AmanacMovementType")
 public class AmanacMovementType implements Serializable {
 
     private static final long serialVersionUID = 1L;
