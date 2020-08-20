@@ -22,7 +22,7 @@ import javax.persistence.Table;
  * @author William
  */
 @Entity
-@Table(name = "[ServiceType]")
+@Table(name = "ServiceType")
 public class ServiceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
