@@ -8,6 +8,7 @@ package mx.tab.wgp.qsmaritimex.entidades.nominacion;
 import mx.tab.wgp.qsmaritimex.entidades.usuario.User;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -41,8 +42,8 @@ public class ServiceOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false, precision = 19, scale = 0)
-    private BigDecimal serviceOrderId;
+    @Column(nullable = false, name = "ServiceOrderId", precision = 19, scale = 0)
+    private BigInteger serviceOrderId;
     @Column(precision = 12, scale = 4)
     private BigDecimal billingAdjustment;
     @Column(length = 500)
@@ -68,6 +69,7 @@ public class ServiceOrder implements Serializable {
     @Column(nullable = false)
     private boolean status;
     private Boolean typeServiceOrder;
+    //-----------------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
@@ -76,26 +78,29 @@ public class ServiceOrder implements Serializable {
     private Collection<ServiceOrderFile> serviceOrderFileCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrderId")
     private Collection<ActingRoles> actingRolesCollection;
+    //---------------------------------------------------------------------------
+    //Llave compuesta desde ServiceOrderProductType
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceOrder")
     private Collection<ServiceOrderProductType> serviceOrderProductTypeCollection;
+    //----------------------------------------------------------------------------
     @OneToMany(mappedBy = "serviceOrderIdFather")
     private Collection<ServiceOrderJoin> serviceOrderJoinCollection;
     @OneToMany(mappedBy = "serviceOrderIdSon")
     private Collection<ServiceOrderJoin> serviceOrderJoinCollection1;
-    @JoinColumn(name = "CurrencyId", referencedColumnName = "currencyId", nullable = false)
+    //-----------------------------------
+    @JoinColumn(name = "CurrencyId", referencedColumnName = "CurrencyId", nullable = false)
     @ManyToOne(optional = false)
     private Currency currencyId;
-    @JoinColumn(name = "ItineraryId", referencedColumnName = "itineraryId", nullable = false)
+    @JoinColumn(name = "ItineraryId", referencedColumnName = "ItineraryId", nullable = false)
     @ManyToOne(optional = false)
     private Itinerary itineraryId;
-    @JoinColumn(name = "ServiceOrderStatusId", referencedColumnName = "serviceOrderStatusId", nullable = false)
+    @JoinColumn(name = "ServiceOrderStatusId", referencedColumnName = "ServiceOrderStatusId", nullable = false)
     @ManyToOne(optional = false)
     private ServiceOrderStatus serviceOrderStatusId;
-    @JoinColumn(name = "ShipOwnerId", referencedColumnName = "shipOwnerId", nullable = false)
+    @JoinColumn(name = "ShipOwnerId", referencedColumnName = "ShipOwnerId", nullable = false)
     @ManyToOne(optional = false)
     private ShipOwner shipOwnerId;
-    //-----------------------------------
-    @JoinColumn(name = "LineId", referencedColumnName = "lineId", nullable = false)
+    @JoinColumn(name = "LineId", referencedColumnName = "LineId", nullable = false)
     @ManyToOne(optional = false)
     private Line lineId;
     @JoinColumn(name = "UserId", referencedColumnName = "UserId", nullable = false)
@@ -105,11 +110,11 @@ public class ServiceOrder implements Serializable {
     public ServiceOrder() {
     }
 
-    public ServiceOrder(BigDecimal serviceOrderId) {
+    public ServiceOrder(BigInteger serviceOrderId) {
         this.serviceOrderId = serviceOrderId;
     }
 
-    public ServiceOrder(BigDecimal serviceOrderId, String operatingInstructions, String serviceOrderCode, Date serviceOrderCreationDate, boolean status, Line lineId) {
+    public ServiceOrder(BigInteger serviceOrderId, String operatingInstructions, String serviceOrderCode, Date serviceOrderCreationDate, boolean status, Line lineId) {
         this.serviceOrderId = serviceOrderId;
         this.operatingInstructions = operatingInstructions;
         this.serviceOrderCode = serviceOrderCode;
@@ -118,11 +123,11 @@ public class ServiceOrder implements Serializable {
         this.lineId = lineId;
     }
 
-    public BigDecimal getServiceOrderId() {
+    public BigInteger getServiceOrderId() {
         return serviceOrderId;
     }
 
-    public void setServiceOrderId(BigDecimal serviceOrderId) {
+    public void setServiceOrderId(BigInteger serviceOrderId) {
         this.serviceOrderId = serviceOrderId;
     }
 

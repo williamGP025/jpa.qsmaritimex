@@ -61,22 +61,22 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     //-----------------------------------
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserLine> userLineCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<ServiceOrder> serviceOrderCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserRol> userRolCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserCargoType> userCargoTypeCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UserId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserEnterprise> userEnterpriseCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UpdateUserId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "updateUserId")
     private Collection<ServiceOrderService> serviceOrderServiceCollection;
 
     public User() {

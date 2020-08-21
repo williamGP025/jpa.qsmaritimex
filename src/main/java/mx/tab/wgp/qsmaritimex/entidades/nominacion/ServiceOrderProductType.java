@@ -26,30 +26,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ServiceOrderProductType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    //----------------------------------------------------------------
+    // Llave compuesta
     @EmbeddedId
     protected ServiceOrderProductTypePK serviceOrderProductTypePK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 12, scale = 2)
-    private BigDecimal quantity;
-    @JoinColumn(name = "productTypeId", referencedColumnName = "productTypeId", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @JoinColumn(name = "ProductTypeId", referencedColumnName = "ProductTypeId",
+            insertable = false, updatable = false)
     private ProductType productType;
-    @JoinColumn(name = "serviceOrderId", referencedColumnName = "serviceOrderId", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @JoinColumn(name = "ServiceOrderId", referencedColumnName = "ServiceOrderId",
+            insertable = false, updatable = false)
     private ServiceOrder serviceOrder;
-    @JoinColumn(name = "WeightUnitId", referencedColumnName = "weightUnitId", nullable = false)
+    //--------------------------------------------------------------
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 12, scale = 2, name = "Quantity")
+    private BigDecimal quantity;
+    @JoinColumn(name = "WeightUnitId", referencedColumnName = "WeightUnitId", nullable = false)
     @ManyToOne(optional = false)
     private WeightUnit weightUnitId;
 
     public ServiceOrderProductType() {
     }
 
-    public ServiceOrderProductType(ServiceOrderProductTypePK serviceOrderProductTypePK) {
-        this.serviceOrderProductTypePK = serviceOrderProductTypePK;
+    public ServiceOrder getServiceOrder() {
+        return serviceOrder;
     }
 
-    public ServiceOrderProductType(int productTypeId, BigInteger serviceOrderId) {
-        this.serviceOrderProductTypePK = new ServiceOrderProductTypePK(productTypeId, serviceOrderId);
+    public void setServiceOrder(ServiceOrder serviceOrder) {
+        this.serviceOrder = serviceOrder;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     public ServiceOrderProductTypePK getServiceOrderProductTypePK() {
@@ -66,22 +79,6 @@ public class ServiceOrderProductType implements Serializable {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
-    }
-
-    public ProductType getProductType() {
-        return productType;
-    }
-
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
-    }
-
-    public ServiceOrder getServiceOrder() {
-        return serviceOrder;
-    }
-
-    public void setServiceOrder(ServiceOrder serviceOrder) {
-        this.serviceOrder = serviceOrder;
     }
 
     public WeightUnit getWeightUnitId() {
@@ -116,5 +113,5 @@ public class ServiceOrderProductType implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.ServiceOrderProductType[ serviceOrderProductTypePK=" + serviceOrderProductTypePK + " ]";
     }
-    
+
 }

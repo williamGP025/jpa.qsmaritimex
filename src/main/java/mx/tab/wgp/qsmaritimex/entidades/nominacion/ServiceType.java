@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,9 +40,9 @@ public class ServiceType implements Serializable {
     @Column(name = "[Status]")
     private Boolean status;
     //-------------------------------------------------------------
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ServiceTypeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeId", fetch = FetchType.LAZY)
     private Collection<Service> serviceCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ServiceTypeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serviceTypeId")
     private Collection<Vessel> vesselCollection;
 
     public ServiceType() {

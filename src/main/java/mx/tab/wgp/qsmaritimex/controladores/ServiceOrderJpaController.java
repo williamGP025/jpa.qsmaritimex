@@ -7,6 +7,7 @@ package mx.tab.wgp.qsmaritimex.controladores;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -532,7 +533,7 @@ public class ServiceOrderJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                BigDecimal id = serviceOrder.getServiceOrderId();
+                BigInteger id = serviceOrder.getServiceOrderId();
                 if (findServiceOrder(id) == null) {
                     throw new NonexistentEntityException("The serviceOrder with id " + id + " no longer exists.");
                 }
@@ -669,7 +670,7 @@ public class ServiceOrderJpaController implements Serializable {
         }
     }
 
-    public ServiceOrder findServiceOrder(BigDecimal id) {
+    public ServiceOrder findServiceOrder(BigInteger id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(ServiceOrder.class, id);
@@ -690,5 +691,5 @@ public class ServiceOrderJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

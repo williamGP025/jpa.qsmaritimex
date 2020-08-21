@@ -19,10 +19,10 @@ import javax.persistence.Embeddable;
 public class ServiceOrderProductTypePK implements Serializable {
 
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "ProductTypeId")
     private int productTypeId;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "ServiceOrderId", precision = 19, scale = 0)
     private BigInteger serviceOrderId;
 
     public ServiceOrderProductTypePK() {
@@ -77,5 +77,5 @@ public class ServiceOrderProductTypePK implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.ServiceOrderProductTypePK[ productTypeId=" + productTypeId + ", serviceOrderId=" + serviceOrderId + " ]";
     }
-    
+
 }

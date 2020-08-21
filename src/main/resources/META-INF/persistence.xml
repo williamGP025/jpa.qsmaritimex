@@ -74,14 +74,15 @@
         <class>mx.tab.wgp.qsmaritimex.entidades.nominacion.ServiceOrderFileType</class>
         <class>mx.tab.wgp.qsmaritimex.entidades.Enterprise</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/QSMaritimex2"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/QSMaritimex"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value="Lucerna1"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.provider_disables_autocommit" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>
