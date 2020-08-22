@@ -7,6 +7,7 @@ package nominacion;
 
 import javax.persistence.Persistence;
 import mx.tab.wgp.qsmaritimex.controladores.ShipOwnerJpaController;
+import mx.tab.wgp.qsmaritimex.entidades.Country;
 import mx.tab.wgp.qsmaritimex.entidades.nominacion.ShipOwner;
 import org.junit.jupiter.api.Test;
 
@@ -26,18 +27,24 @@ public class ShipOwnerTest {
     @Test
     public void create() {
         ShipOwnerJpaController shipOwnerController = new ShipOwnerJpaController(Persistence.createEntityManagerFactory(_UNIT));
+        
         ShipOwner nuevo = new ShipOwner();
-        nuevo.setContactName("pancho perez");
+        
+        nuevo.setContactName("pancho perez3");
         nuevo.setCity("merida");
         nuevo.setContactEmail("correo@mail.com");
         nuevo.setCp("97156");
         nuevo.setDistrict("del chido");
         nuevo.setShipOwnerName("pepe pecas");
         nuevo.setState("Yucatan");
-        nuevo.setRfc("gopw910125htcdl1");
-        nuevo.setState("calle 69");
+        nuevo.setRfc("xxx2");
+        nuevo.setStreet("calle 69");
         nuevo.setStreetNumber("#123 x6A y 8");
         nuevo.setContactPhone("7224335214");
+        nuevo.setCountryId(new Country(1));
+        nuevo.setCreationDate(null);        
+        nuevo.setUpdateDate(null);
+
         shipOwnerController.create(nuevo);
     }
 }
