@@ -26,6 +26,69 @@
     <property name="javax.persistence.schema-generation.database.action" value="create" />
 </persistence-unit>
 ```
+> Llaves compuestas
+```
+@Entity
+@XmlRootElement
+@Table(name = "ServiceOrderProductType")
+public class ServiceOrderProductType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    //----------------------------------------------------------------
+    // Llave compuesta
+    @EmbeddedId
+    protected ServiceOrderProductTypePK serviceOrderProductTypePK;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "ProductTypeId", referencedColumnName = "ProductTypeId",
+            insertable = false, updatable = false)
+    private ProductType productType;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "ServiceOrderId", referencedColumnName = "ServiceOrderId",
+            insertable = false, updatable = false)
+    private ServiceOrder serviceOrder;
+    //--------------------------------------------------------------
+}
+
+@Embeddable
+public class ServiceOrderProductTypePK implements Serializable {
+
+    @Basic(optional = false)
+    @Column(nullable = false, name = "ProductTypeId")
+    private int productTypeId;
+    @Basic(optional = false)
+    @Column(nullable = false, name = "ServiceOrderId", precision = 19, scale = 0)
+    private BigInteger serviceOrderId;
+
+    public ServiceOrderProductTypePK() {
+    }
+}
+
+@Entity
+@XmlRootElement
+@Table(name = "ProductType")
+public class ProductType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer productTypeId;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 500)
+    private String descriptionMX;
+    @Column(length = 50)
+    private String descriptionUS;
+    private Boolean status;
+    private Boolean syncCRM;
+    //----------------------------------------------------------------------------
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType")
+    private Collection<ServiceOrderProductType> serviceOrderProductTypeCollection;
+
+    public ProductType() {
+    }
+}
+```
 > @Test JUnit
 ```
     private static final String _UNIT = "qsmaritimex_jpa";
