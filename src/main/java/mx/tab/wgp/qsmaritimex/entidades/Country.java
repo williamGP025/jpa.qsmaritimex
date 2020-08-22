@@ -56,6 +56,12 @@ public class Country implements Serializable {
     public Country() {
     }
 
+    public Country(String countryCode, String descriptionMX) {
+        this.countryCode = countryCode;
+        this.descriptionMX = descriptionMX;
+        this.status = true;
+    }
+
     public Country(Integer countryId) {
         this.countryId = countryId;
     }
@@ -156,5 +162,5 @@ public class Country implements Serializable {
     public String toString() {
         return "mx.tab.wgp.qsmaritimex.entidades.Country[ countryId=" + countryId + " ]";
     }
-    
+
 }

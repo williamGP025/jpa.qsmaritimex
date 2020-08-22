@@ -7,6 +7,7 @@ package mx.tab.wgp.qsmaritimex.entidades.nominacion;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -35,24 +36,6 @@ import mx.tab.wgp.qsmaritimex.entidades.Country;
 @Entity
 @Table(name = "ShipOwner")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ShipOwner.findAll", query = "SELECT s FROM ShipOwner s"),
-    @NamedQuery(name = "ShipOwner.findByShipOwnerId", query = "SELECT s FROM ShipOwner s WHERE s.shipOwnerId = :shipOwnerId"),
-    @NamedQuery(name = "ShipOwner.findByCity", query = "SELECT s FROM ShipOwner s WHERE s.city = :city"),
-    @NamedQuery(name = "ShipOwner.findByContactEmail", query = "SELECT s FROM ShipOwner s WHERE s.contactEmail = :contactEmail"),
-    @NamedQuery(name = "ShipOwner.findByContactName", query = "SELECT s FROM ShipOwner s WHERE s.contactName = :contactName"),
-    @NamedQuery(name = "ShipOwner.findByContactPhone", query = "SELECT s FROM ShipOwner s WHERE s.contactPhone = :contactPhone"),
-    @NamedQuery(name = "ShipOwner.findByCp", query = "SELECT s FROM ShipOwner s WHERE s.cp = :cp"),
-    @NamedQuery(name = "ShipOwner.findByCreationDate", query = "SELECT s FROM ShipOwner s WHERE s.creationDate = :creationDate"),
-    @NamedQuery(name = "ShipOwner.findByCustomerIdAx", query = "SELECT s FROM ShipOwner s WHERE s.customerIdAx = :customerIdAx"),
-    @NamedQuery(name = "ShipOwner.findByDistrict", query = "SELECT s FROM ShipOwner s WHERE s.district = :district"),
-    @NamedQuery(name = "ShipOwner.findByRfc", query = "SELECT s FROM ShipOwner s WHERE s.rfc = :rfc"),
-    @NamedQuery(name = "ShipOwner.findByShipOwnerName", query = "SELECT s FROM ShipOwner s WHERE s.shipOwnerName = :shipOwnerName"),
-    @NamedQuery(name = "ShipOwner.findByState", query = "SELECT s FROM ShipOwner s WHERE s.state = :state"),
-    @NamedQuery(name = "ShipOwner.findByStatus", query = "SELECT s FROM ShipOwner s WHERE s.status = :status"),
-    @NamedQuery(name = "ShipOwner.findByStreet", query = "SELECT s FROM ShipOwner s WHERE s.street = :street"),
-    @NamedQuery(name = "ShipOwner.findByStreetNumber", query = "SELECT s FROM ShipOwner s WHERE s.streetNumber = :streetNumber"),
-    @NamedQuery(name = "ShipOwner.findByUpdateDate", query = "SELECT s FROM ShipOwner s WHERE s.updateDate = :updateDate")})
 public class ShipOwner implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,8 +60,9 @@ public class ShipOwner implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 10)
     private String cp;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    @Basic
+    @Column(name = "CreationDate")
+    private LocalDateTime creationDate;
     @Column(precision = 19, scale = 2)
     private BigInteger customerIdAx;
     @Basic(optional = false)
@@ -109,7 +93,7 @@ public class ShipOwner implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipOwnerId")
     private Collection<ServiceOrder> serviceOrderCollection;
     @JoinColumn(name = "CountryId", referencedColumnName = "countryId", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Country countryId;
     //-------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipOwnerId")
@@ -124,6 +108,8 @@ public class ShipOwner implements Serializable {
     }
 
     public ShipOwner() {
+        this.status = true;
+        this.creationDate = LocalDateTime.now();
     }
 
     public ShipOwner(BigInteger shipOwnerId) {
@@ -194,11 +180,11 @@ public class ShipOwner implements Serializable {
         this.cp = cp;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
