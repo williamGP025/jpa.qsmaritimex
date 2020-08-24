@@ -17,7 +17,9 @@ import org.junit.jupiter.api.Test;
  */
 public class ShipOwnerTest {
 
-    private static final String _UNIT = "qsmaritimex_jpa";
+    private final String _UNIT = "qsmaritimex_jpa";
+    private final ShipOwnerJpaController shipOwnerController = new ShipOwnerJpaController(
+            Persistence.createEntityManagerFactory(_UNIT));
 
     @Test
     public void generateSchema() {
@@ -26,10 +28,7 @@ public class ShipOwnerTest {
 
     @Test
     public void create() {
-        ShipOwnerJpaController shipOwnerController = new ShipOwnerJpaController(Persistence.createEntityManagerFactory(_UNIT));
-
         ShipOwner nuevo = new ShipOwner();
-
         nuevo.setContactName("pancho perez");
         nuevo.setCity("merida");
         nuevo.setContactEmail("correo@mail.com");
@@ -41,8 +40,8 @@ public class ShipOwnerTest {
         nuevo.setStreet("calle 69");
         nuevo.setStreetNumber("#123 x6A y 8");
         nuevo.setContactPhone("7224335214");
-        
-        //nuevo.setCountryId(new Country("MXN", "Mexico"));
+
+        // nuevo.setCountryId(new Country("MXN", "Mexico"));
         nuevo.setCountryId(new Country(3));
         nuevo.setUpdateDate(null);
 
