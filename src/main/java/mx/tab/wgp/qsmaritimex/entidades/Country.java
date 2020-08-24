@@ -61,8 +61,7 @@ public class Country implements Serializable {
         this.countryCode = countryCode;
         this.descriptionMX = descriptionMX;
         this.status = true;
-        this.shipOwnerCollection =  new ArrayList<ShipOwner>();
-        //this.countryId = 0;
+        this.shipOwnerCollection = new ArrayList<ShipOwner>();
     }
 
     public Country(Integer countryId) {
@@ -163,7 +162,6 @@ public class Country implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.tab.wgp.qsmaritimex.entidades.Country[ countryId=" + countryId + " ]";
+        return "Country{" + "countryId=" + countryId + ", countryCode=" + countryCode + ", descriptionMX=" + descriptionMX + ", descriptionUS=" + descriptionUS + ", status=" + status + '}';
     }
-
 }

@@ -30,7 +30,7 @@ public class ShipOwnerTest {
 
         ShipOwner nuevo = new ShipOwner();
 
-        nuevo.setContactName("pancho perez2");
+        nuevo.setContactName("pancho perez");
         nuevo.setCity("merida");
         nuevo.setContactEmail("correo@mail.com");
         nuevo.setCp("97156");
@@ -44,8 +44,6 @@ public class ShipOwnerTest {
         
         //nuevo.setCountryId(new Country("MXN", "Mexico"));
         nuevo.setCountryId(new Country(3));
-
-        nuevo.setCreationDate(null);
         nuevo.setUpdateDate(null);
 
         shipOwnerController.create(nuevo);

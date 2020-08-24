@@ -334,5 +334,4 @@ public class ShipOwnerJpaController implements Serializable {
             em.close();
         }
     }
-    
 }
