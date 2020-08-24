@@ -27,10 +27,10 @@ public class ShipOwnerTest {
     @Test
     public void create() {
         ShipOwnerJpaController shipOwnerController = new ShipOwnerJpaController(Persistence.createEntityManagerFactory(_UNIT));
-        
+
         ShipOwner nuevo = new ShipOwner();
-        
-        nuevo.setContactName("pancho perez3");
+
+        nuevo.setContactName("pancho perez2");
         nuevo.setCity("merida");
         nuevo.setContactEmail("correo@mail.com");
         nuevo.setCp("97156");
@@ -41,10 +41,14 @@ public class ShipOwnerTest {
         nuevo.setStreet("calle 69");
         nuevo.setStreetNumber("#123 x6A y 8");
         nuevo.setContactPhone("7224335214");
-        nuevo.setCountryId(new Country(1));
-        nuevo.setCreationDate(null);        
+        
+        //nuevo.setCountryId(new Country("MXN", "Mexico"));
+        nuevo.setCountryId(new Country(3));
+
+        nuevo.setCreationDate(null);
         nuevo.setUpdateDate(null);
 
         shipOwnerController.create(nuevo);
     }
+
 }

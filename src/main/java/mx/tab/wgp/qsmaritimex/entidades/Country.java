@@ -9,6 +9,7 @@ import mx.tab.wgp.qsmaritimex.entidades.nominacion.Vessel;
 import mx.tab.wgp.qsmaritimex.entidades.nominacion.Port;
 import mx.tab.wgp.qsmaritimex.entidades.nominacion.ShipOwner;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -60,6 +61,8 @@ public class Country implements Serializable {
         this.countryCode = countryCode;
         this.descriptionMX = descriptionMX;
         this.status = true;
+        this.shipOwnerCollection =  new ArrayList<ShipOwner>();
+        //this.countryId = 0;
     }
 
     public Country(Integer countryId) {

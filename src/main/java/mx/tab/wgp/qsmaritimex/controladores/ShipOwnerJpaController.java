@@ -54,7 +54,7 @@ public class ShipOwnerJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Country countryId = shipOwner.getCountryId();
-            if (countryId != null) {
+            if (countryId != null && countryId.getCountryId() != null) {
                 countryId = em.getReference(countryId.getClass(), countryId.getCountryId());
                 shipOwner.setCountryId(countryId);
             }
