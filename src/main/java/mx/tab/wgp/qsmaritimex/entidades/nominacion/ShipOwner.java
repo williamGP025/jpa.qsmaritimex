@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,12 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import mx.tab.wgp.qsmaritimex.entidades.Country;
@@ -39,7 +34,8 @@ import mx.tab.wgp.qsmaritimex.entidades.Country;
 public class ShipOwner implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
+    // consider using these annotations to enforce field validation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -86,8 +82,9 @@ public class ShipOwner implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 50)
     private String streetNumber;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
+    @Basic
+    @Column(name = "UpdateDate")
+    private LocalDateTime updateDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipOwnerId")
     private Collection<ReferenceShipOwner> referenceShipOwnerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipOwnerId")
@@ -95,17 +92,9 @@ public class ShipOwner implements Serializable {
     @JoinColumn(name = "CountryId", referencedColumnName = "countryId", nullable = false)
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Country countryId;
-    //-------------------------
+    // -------------------------
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipOwnerId")
     private Collection<Line> lineCollection;
-
-    public Collection<Line> getLineCollection() {
-        return lineCollection;
-    }
-
-    public void setLineCollection(Collection<Line> lineCollection) {
-        this.lineCollection = lineCollection;
-    }
 
     public ShipOwner() {
         this.status = true;
@@ -116,7 +105,9 @@ public class ShipOwner implements Serializable {
         this.shipOwnerId = shipOwnerId;
     }
 
-    public ShipOwner(BigInteger shipOwnerId, String city, String contactEmail, String contactName, String contactPhone, String cp, String district, String rfc, String shipOwnerName, String state, boolean status, String street, String streetNumber) {
+    public ShipOwner(BigInteger shipOwnerId, String city, String contactEmail, String contactName, String contactPhone,
+            String cp, String district, String rfc, String shipOwnerName, String state, boolean status, String street,
+            String streetNumber) {
         this.shipOwnerId = shipOwnerId;
         this.city = city;
         this.contactEmail = contactEmail;
@@ -130,6 +121,16 @@ public class ShipOwner implements Serializable {
         this.status = status;
         this.street = street;
         this.streetNumber = streetNumber;
+
+        this.creationDate = LocalDateTime.now();
+    }
+
+    public Collection<Line> getLineCollection() {
+        return lineCollection;
+    }
+
+    public void setLineCollection(Collection<Line> lineCollection) {
+        this.lineCollection = lineCollection;
     }
 
     public BigInteger getShipOwnerId() {
@@ -252,11 +253,11 @@ public class ShipOwner implements Serializable {
         this.streetNumber = streetNumber;
     }
 
-    public Date getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -300,7 +301,8 @@ public class ShipOwner implements Serializable {
             return false;
         }
         ShipOwner other = (ShipOwner) object;
-        if ((this.shipOwnerId == null && other.shipOwnerId != null) || (this.shipOwnerId != null && !this.shipOwnerId.equals(other.shipOwnerId))) {
+        if ((this.shipOwnerId == null && other.shipOwnerId != null)
+                || (this.shipOwnerId != null && !this.shipOwnerId.equals(other.shipOwnerId))) {
             return false;
         }
         return true;

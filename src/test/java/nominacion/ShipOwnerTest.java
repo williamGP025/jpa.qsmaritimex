@@ -5,8 +5,16 @@
  */
 package nominacion;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+
 import javax.persistence.Persistence;
 import mx.tab.wgp.qsmaritimex.controladores.ShipOwnerJpaController;
+import mx.tab.wgp.qsmaritimex.controladores.exceptions.IllegalOrphanException;
+import mx.tab.wgp.qsmaritimex.controladores.exceptions.NonexistentEntityException;
 import mx.tab.wgp.qsmaritimex.entidades.Country;
 import mx.tab.wgp.qsmaritimex.entidades.nominacion.ShipOwner;
 import org.junit.jupiter.api.Test;
@@ -29,7 +37,8 @@ public class ShipOwnerTest {
     @Test
     public void create() {
         ShipOwner nuevo = new ShipOwner();
-        nuevo.setContactName("pancho perez");
+
+        nuevo.setContactName("pancho perez1");
         nuevo.setCity("merida");
         nuevo.setContactEmail("correo@mail.com");
         nuevo.setCp("97156");
@@ -42,10 +51,21 @@ public class ShipOwnerTest {
         nuevo.setContactPhone("7224335214");
 
         // nuevo.setCountryId(new Country("MXN", "Mexico"));
-        nuevo.setCountryId(new Country(3));
-        nuevo.setUpdateDate(null);
+        nuevo.setCountryId(new Country(1));
 
         shipOwnerController.create(nuevo);
     }
 
+    @Test
+    public void update() {
+        ShipOwner original = new ShipOwner(BigInteger.valueOf(1L));
+        original.setShipOwnerName("yo merengues");
+        original.setUpdateDate(LocalDateTime.now());
+        try {
+            this.shipOwnerController.edit(original);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(e == null);
+        }
+    }
 }
