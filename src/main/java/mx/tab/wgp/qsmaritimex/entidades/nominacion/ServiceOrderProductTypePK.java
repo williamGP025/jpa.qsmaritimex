@@ -18,6 +18,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ServiceOrderProductTypePK implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    
     @Basic(optional = false)
     @Column(nullable = false, name = "ProductTypeId")
     private int productTypeId;

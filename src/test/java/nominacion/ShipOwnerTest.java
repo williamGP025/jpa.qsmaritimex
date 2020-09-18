@@ -5,7 +5,6 @@
  */
 package nominacion;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
@@ -13,8 +12,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Persistence;
 import mx.tab.wgp.qsmaritimex.controladores.ShipOwnerJpaController;
-import mx.tab.wgp.qsmaritimex.controladores.exceptions.IllegalOrphanException;
-import mx.tab.wgp.qsmaritimex.controladores.exceptions.NonexistentEntityException;
 import mx.tab.wgp.qsmaritimex.entidades.Country;
 import mx.tab.wgp.qsmaritimex.entidades.nominacion.ShipOwner;
 import org.junit.jupiter.api.Test;

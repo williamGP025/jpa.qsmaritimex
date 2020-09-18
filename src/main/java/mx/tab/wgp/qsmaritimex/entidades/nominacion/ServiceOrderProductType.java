@@ -7,7 +7,6 @@ package mx.tab.wgp.qsmaritimex.entidades.nominacion;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
